@@ -1,0 +1,235 @@
+openapi: 3.0.0
+x-stoplight:
+  id: d2p9a500t4j3i
+info:
+  title: Shared
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths: {}
+components:
+  schemas:
+    Lecture:
+      title: Lecture
+      x-stoplight:
+        id: 0tm8uu8aq1034
+      type: object
+      properties:
+        title:
+          type: string
+        image_url:
+          type: string
+        held_at:
+          type: string
+          format: date
+        library:
+          type: boolean
+      x-examples:
+        Example 1:
+          title: Adventures in District and State-Level Advocacy
+          image_url: 'https://assets.infinum.com/lecture/1/poster.jpg'
+          held_at: '2021-01-10'
+          library: true
+        Example 2:
+          title: 'An Asynchronous, Interactive, Get-The-Facts-Out Activity and More'
+          image_url: 'https://assets.infinum.com/lecture/2/poster.jpg'
+          held_at: '2021-01-10'
+          library: true
+        Example 3:
+          title: Consistency and Fairness in Introductory Physics Course Grades
+          image_url: 'https://assets.infinum.com/lecture/3/poster.jpg'
+          held_at: '2021-03-10'
+          library: true
+        Example 4:
+          title: 'Aqueous alteration of layered deposits within Sera and Jiji, Mars'
+          image_url: 'https://assets.infinum.com/lecture/4/poster.jpg'
+          held_at: '2021-09-15'
+          library: true
+      x-internal: false
+      description: ''
+    meta:
+      title: meta
+      x-stoplight:
+        id: a96l0prbrbf4m
+      type: object
+      properties:
+        total_count:
+          type: integer
+    jsonapi-links:
+      title: Links object
+      type: object
+      properties:
+        self:
+          type: string
+        next:
+          type: string
+        prev:
+          type: string
+        first:
+          type: string
+        last:
+          type: string
+      x-stoplight:
+        id: 869dd0bc1daf0
+    jsonapi-error:
+      type: object
+      x-examples:
+        Example 1:
+          errors:
+            - status: unprocessable entity
+              source:
+                pointer: /data/attributes/firstName
+              title: Invalid Attribute
+              detail: First name must contain at least two characters.
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              status:
+                type: string
+                description: HTTP status code applicable to this problem
+              code:
+                type: string
+                description: an application-specific error code
+              source:
+                type: object
+                description: an object containing references to the primary source of the error
+                properties:
+                  pointer:
+                    type: string
+                    description: 'a JSON Pointer [RFC6901](https://tools.ietf.org/html/rfc6901) to the value in the request document that caused the error'
+                  parameter:
+                    type: string
+                    description: a string indicating which URI query parameter caused the error.
+                  header:
+                    type: string
+                    description: a string indicating the name of a single request header which caused the error.
+              title:
+                type: string
+                description: 'a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.'
+              detail:
+                type: string
+                description: 'a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.'
+              meta:
+                type: string
+                description: a meta object containing non-standard meta-information about the error
+    hal-links:
+      title: Links Object HAL
+      type: object
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+        next:
+          type: object
+          properties:
+            href:
+              type: string
+        prev:
+          type: object
+          properties:
+            href:
+              type: string
+        first:
+          type: object
+          properties:
+            href:
+              type: string
+        last:
+          type: object
+          properties:
+            href:
+              type: string
+    hal-error:
+      type: object
+      x-examples:
+        Example:
+          type: 'https://infinum.com/probs/out-of-credit'
+          title: You do not have enough credit.
+          detail: 'Your current balance is 30, but that costs 50.'
+        Multiple errors:
+          type: 'http://infinum.com/problems/multiple'
+          title: Multiple Problems
+          status: 400
+          detail: There were multiple problems that have occurred.
+          instance: /sales/products/abc123/availableForSale
+          problems:
+            - type: 'http://infinum.com/problems/already-available'
+              title: Cannot set product as available.
+              detail: Product is already Available For Sale.
+              instance: /sales/products/abc123/availableForSale
+            - type: 'http://infinum.com/problems/no-quantity'
+              title: Cannot set product as available.
+              detail: Product has no Quantity on Hand.
+              instance: /sales/products/abc123/availableForSale
+      properties:
+        type:
+          type: string
+          description: 'A URI reference [RFC3986] that identifies the problem type.'
+          default: 'about:blank'
+        title:
+          type: string
+          description: 'A short, human-readable summary of the problem type. It SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization'
+        status:
+          type: number
+          description: The HTTP status code generated by the origin server for this occurrence of the problem.
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+        instance:
+          type: string
+          description: A URI reference that identifies the specific occurrence of the problem.  It may or may not yield further information if dereferenced.
+      description: Problem type definitions MAY extend the problem details object with additional members.
+  requestBodies: {}
+  parameters:
+    page_number:
+      name: 'page[number]'
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Pagination number
+    page_size:
+      name: 'page[size]'
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Pagination page size
+    sort:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: string
+      description: sort list
+    filter:
+      name: 'filter[value]'
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Filtering by the value, placeholder'
+    page_after:
+      name: 'page[after]'
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Returns resources immediately after this cursor
+    page_before:
+      name: 'page[before]'
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Returns resources immediately before this cursor
+  securitySchemes:
+    Authentication:
+      type: http
+      scheme: bearer
+      description: Bearer token

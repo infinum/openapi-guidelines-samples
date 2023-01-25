@@ -1,0 +1,29 @@
+name: Build
+
+on: push
+
+jobs:
+  build:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version-file: .tool-versions
+          cache: npm
+      - name: npm install
+        run: npm install
+      - name: Build openapi.yaml
+        run: npm run build
+      - name: S3 Sync
+        uses: giboow/action-aws-cli@v1
+        with:
+          args: s3 sync . s3://${{secrets.AWS_S3_BUCKET}}/${{github.ref_name}} --exclude ".git/*" --exclude ".github/*" --no-progress --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'eu-west-2'
+

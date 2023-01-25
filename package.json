@@ -1,0 +1,13 @@
+{
+  "name": "openapi-guidelines-samples",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "redocly join api/*"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@redocly/cli": "^1.0.0-beta.121"
+  }
+}

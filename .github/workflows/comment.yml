@@ -1,0 +1,22 @@
+name: Comment
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened]
+
+jobs:
+  build:
+    name: 'Comment'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const branch_name = context.payload.pull_request.head.ref
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `[Docs link for ${branch_name}](http://mara-documentation.s3-website.eu-west-2.amazonaws.com/${branch_name})`
+            })

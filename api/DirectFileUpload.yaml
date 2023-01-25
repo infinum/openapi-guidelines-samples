@@ -1,0 +1,364 @@
+openapi: 3.0.0
+x-stoplight:
+  id: n0c9u6hitcxpc
+info:
+  title: DirectFileUpload
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /s3/presigned_post:
+    get:
+      summary: Generate Presigned POST fields
+      tags:
+        - S3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                  fields:
+                    type: object
+                    properties:
+                      Content-Type:
+                        type: string
+                      bucket:
+                        type: string
+                      X-Amz-Algorithm:
+                        type: string
+                      X-Amz-Credential:
+                        type: string
+                      X-Amz-Date:
+                        type: string
+                      X-Amz-Security-Token:
+                        type: string
+                      key:
+                        type: string
+                      Policy:
+                        type: string
+                      X-Amz-Signature:
+                        type: string
+                x-examples:
+                  Example 1:
+                    url: 'https://676302343044-benchmark-bucket.s3.eu-north-1.amazonaws.com/'
+                    fields:
+                      Content-Type: video/mp4
+                      bucket: 676302343044-benchmark-bucket
+                      X-Amz-Algorithm: AWS4-HMAC-SHA256
+                      X-Amz-Credential: ASIAZ25WCZOCITTCVGIC/20221214/eu-north-1/s3/aws4_request
+                      X-Amz-Date: 20221214T142422Z
+                      X-Amz-Security-Token: IQoJb3JpZ2luX2VjEK7//////////wEaCmV1LW5vcnRoLTEiRjBEAiAnr0AXiZFf1pCTg3Q938DzIZNLImu0+Jft+wl/Yl/DXQIgHadthE8Kh0rTZ5ZMJD0kP9fVUogkwegiWDL6U58buZQqjgMI2P//////////ARAAGgw2NzYzMDIzNDMwNDQiDNQk9xQ5JECXb+IM/yriAgvY9Yjo42uGEVUgrNRxqH2VZTGo+bM7jOo5aEDyAHINpt+haXEXk90y5eq7QulBcupalsSHDaYMTmeIvKj88dF/EJfC2zK53/HTO3ICzW7uG6yQJ9VUVrcVIKxK/pgQ6onU6VBJQKf5IBE/cFER/iWdXkNspCNL4lKMj0n9nQOxDquMwzJbpB3jTbRFXyu+WRlY6kL1TTLecxugL86ShbdVBsTzMN9YvB68oo/tpvE2MvGC5UeGcNCGi3i/qSjgLsV/Dy612yTx8dT4Tli6ZBbFTyrt0NbZ4DhlFKqgjHl1s5DyKVwe+f0rTLkSHG3xuWF+tuLsmN+4uObOfhtcWVLA5UetLMLwWs564sCfv0LvJTYWVx4roQSwlWy3RRQ6di/Ncz56oHZ7SFSuT4DQLsktnfVjDqvrsUHNA9oRK76MGXHYikqU0xbRmH6EorTTgD9WApmMoqfaA7kYPjSPc1f4/jCWueecBjqfAfBGM/ii6ebqZRHSvDSULOydQ4+Ahe2CZ4p3SK7SWfY/KqUCHasiLmjsGrDzG+hAVA4d1eQIxsgcqdPrmTmog/L/HwAkHeT6pB8S7APZm1Y388wMwoH3X0COTN4VW+PF/Jlkkejk3EouKZp2TDkn35ZPZW159RRR+e9duKt4KGDDZfhre+3BVP4CyGjTg5sdzy+D6aGIJugRIxpuxpAeHQ==
+                      key: fl5xz8lbnqueqj_bunny.mp4
+                      Policy: eyJleHBpcmF0aW9uIjoiMjAyMi0xMi0xNFQxNDozNDoyMloiLCJjb25kaXRpb25zIjpbeyJDb250ZW50LVR5cGUiOiJ2aWRlby9tcDQifSx7ImJ1Y2tldCI6IjY3NjMwMjM0MzA0NC1iZW5jaG1hcmstYnVja2V0In0seyJYLUFtei1BbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJYLUFtei1DcmVkZW50aWFsIjoiQVNJQVoyNVdDWk9DSVRUQ1ZHSUMvMjAyMjEyMTQvZXUtbm9ydGgtMS9zMy9hd3M0X3JlcXVlc3QifSx7IlgtQW16LURhdGUiOiIyMDIyMTIxNFQxNDI0MjJaIn0seyJYLUFtei1TZWN1cml0eS1Ub2tlbiI6IklRb0piM0pwWjJsdVgyVmpFSzcvLy8vLy8vLy8vd0VhQ21WMUxXNXZjblJvTFRFaVJqQkVBaUFucjBBWGlaRmYxcENUZzNROTM4RHpJWk5MSW11MCtKZnQrd2wvWWwvRFhRSWdIYWR0aEU4S2gwclRaNVpNSkQwa1A5ZlZVb2drd2VnaVdETDZVNThidVpRcWpnTUkyUC8vLy8vLy8vLy9BUkFBR2d3Mk56WXpNREl6TkRNd05EUWlETlFrOXhRNUpFQ1hiK0lNL3lyaUFndlk5WWpvNDJ1R0VWVWdyTlJ4cUgyVlpUR28rYk03ak9vNWFFRHlBSElOcHQraGFYRVhrOTB5NWVxN1F1bEJjdXBhbHNTSERhWU1UbWVJdktqODhkRi9FSmZDMnpLNTMvSFRPM0lDelc3dUc2eVFKOVZVVnJjVklLeEsvcGdRNm9uVTZWQkpRS2Y1SUJFL2NGRVIvaVdkWGtOc3BDTkw0bEtNajBuOW5RT3hEcXVNd3pKYnBCM2pUYlJGWHl1K1dSbFk2a0wxVFRMZWN4dWdMODZTaGJkVkJzVHpNTjlZdkI2OG9vL3RwdkUyTXZHQzVVZUdjTkNHaTNpL3FTamdMc1YvRHk2MTJ5VHg4ZFQ0VGxpNlpCYkZUeXJ0ME5iWjREaGxGS3FnakhsMXM1RHlLVndlK2YwclRMa1NIRzN4dVdGK3R1THNtTis0dU9iT2ZodGNXVkxBNVVldExNTHdXczU2NHNDZnYwTHZKVFlXVng0cm9RU3dsV3kzUlJRNmRpL05jejU2b0haN1NGU3VUNERRTHNrdG5mVmpEcXZyc1VITkE5b1JLNzZNR1hIWWlrcVUweGJSbUg2RW9yVFRnRDlXQXBtTW9xZmFBN2tZUGpTUGMxZjQvakNXdWVlY0JqcWZBZkJHTS9paTZlYnFaUkhTdkRTVUxPeWRRNCtBaGUyQ1o0cDNTSzdTV2ZZL0txVUNIYXNpTG1qc0dyRHpHK2hBVkE0ZDFlUUl4c2djcWRQcm1UbW9nL0wvSHdBa0hlVDZwQjhTN0FQWm0xWTM4OHdNd29IM1gwQ09UTjRWVytQRi9KbGtrZWprM0VvdUtacDJURGtuMzVaUFpXMTU5UlJSK2U5ZHVLdDRLR0REWmZocmUrM0JWUDRDeUdqVGc1c2R6eStENmFHSUp1Z1JJeHB1eHBBZUhRPT0ifSx7ImtleSI6ImZsNXh6OGxibnF1ZXFqX2J1bm55Lm1wNCJ9XX0=
+                      X-Amz-Signature: 2709eda54772e70df1c1f0ddc13774ebf68d37b9d5eb8d32de97c2630bba5316
+              examples:
+                Example:
+                  value:
+                    url: 'https://bucket.s3.eu-west-1.amazonaws.com/'
+                    fields:
+                      Content-Type: image/png
+                      bucket: bucket
+                      X-Amz-Algorithm: AWS4-HMAC-SHA256
+                      X-Amz-Credential: ASIAZ25WCZOCITTCVGIC/20221214/eu-west-1/s3/aws4_request
+                      X-Amz-Date: 20221214T142422Z
+                      X-Amz-Security-Token: IQoJb3JpZ2luX2VjEK7//////////wEaCmV1LW5vcnRoLTEiRjBEAiAnr0AXiZFf1pCTg3Q938DzIZNLImu0+Jft+wl/Yl/DXQIgHadthE8Kh0rTZ5ZMJD0kP9fVUogkwegiWDL6U58buZQqjgMI2P//////////ARAAGgw2NzYzMDIzNDMwNDQiDNQk9xQ5JECXb+IM/yriAgvY9Yjo42uGEVUgrNRxqH2VZTGo+bM7jOo5aEDyAHINpt+haXEXk90y5eq7QulBcupalsSHDaYMTmeIvKj88dF/EJfC2zK53/HTO3ICzW7uG6yQJ9VUVrcVIKxK/pgQ6onU6VBJQKf5IBE/cFER/iWdXkNspCNL4lKMj0n9nQOxDquMwzJbpB3jTbRFXyu+WRlY6kL1TTLecxugL86ShbdVBsTzMN9YvB68oo/tpvE2MvGC5UeGcNCGi3i/qSjgLsV/Dy612yTx8dT4Tli6ZBbFTyrt0NbZ4DhlFKqgjHl1s5DyKVwe+f0rTLkSHG3xuWF+tuLsmN+4uObOfhtcWVLA5UetLMLwWs564sCfv0LvJTYWVx4roQSwlWy3RRQ6di/Ncz56oHZ7SFSuT4DQLsktnfVjDqvrsUHNA9oRK76MGXHYikqU0xbRmH6EorTTgD9WApmMoqfaA7kYPjSPc1f4/jCWueecBjqfAfBGM/ii6ebqZRHSvDSULOydQ4+Ahe2CZ4p3SK7SWfY/KqUCHasiLmjsGrDzG+hAVA4d1eQIxsgcqdPrmTmog/L/HwAkHeT6pB8S7APZm1Y388wMwoH3X0COTN4VW+PF/Jlkkejk3EouKZp2TDkn35ZPZW159RRR+e9duKt4KGDDZfhre+3BVP4CyGjTg5sdzy+D6aGIJugRIxpuxpAeHQ==
+                      key: s3/fl5xz8lbnqueqj_bunny.png
+                      Policy: eyJleHBpcmF0aW9uIjoiMjAyMi0xMi0xNFQxNDozNDoyMloiLCJjb25kaXRpb25zIjpbeyJDb250ZW50LVR5cGUiOiJ2aWRlby9tcDQifSx7ImJ1Y2tldCI6IjY3NjMwMjM0MzA0NC1iZW5jaG1hcmstYnVja2V0In0seyJYLUFtei1BbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJYLUFtei1DcmVkZW50aWFsIjoiQVNJQVoyNVdDWk9DSVRUQ1ZHSUMvMjAyMjEyMTQvZXUtbm9ydGgtMS9zMy9hd3M0X3JlcXVlc3QifSx7IlgtQW16LURhdGUiOiIyMDIyMTIxNFQxNDI0MjJaIn0seyJYLUFtei1TZWN1cml0eS1Ub2tlbiI6IklRb0piM0pwWjJsdVgyVmpFSzcvLy8vLy8vLy8vd0VhQ21WMUxXNXZjblJvTFRFaVJqQkVBaUFucjBBWGlaRmYxcENUZzNROTM4RHpJWk5MSW11MCtKZnQrd2wvWWwvRFhRSWdIYWR0aEU4S2gwclRaNVpNSkQwa1A5ZlZVb2drd2VnaVdETDZVNThidVpRcWpnTUkyUC8vLy8vLy8vLy9BUkFBR2d3Mk56WXpNREl6TkRNd05EUWlETlFrOXhRNUpFQ1hiK0lNL3lyaUFndlk5WWpvNDJ1R0VWVWdyTlJ4cUgyVlpUR28rYk03ak9vNWFFRHlBSElOcHQraGFYRVhrOTB5NWVxN1F1bEJjdXBhbHNTSERhWU1UbWVJdktqODhkRi9FSmZDMnpLNTMvSFRPM0lDelc3dUc2eVFKOVZVVnJjVklLeEsvcGdRNm9uVTZWQkpRS2Y1SUJFL2NGRVIvaVdkWGtOc3BDTkw0bEtNajBuOW5RT3hEcXVNd3pKYnBCM2pUYlJGWHl1K1dSbFk2a0wxVFRMZWN4dWdMODZTaGJkVkJzVHpNTjlZdkI2OG9vL3RwdkUyTXZHQzVVZUdjTkNHaTNpL3FTamdMc1YvRHk2MTJ5VHg4ZFQ0VGxpNlpCYkZUeXJ0ME5iWjREaGxGS3FnakhsMXM1RHlLVndlK2YwclRMa1NIRzN4dVdGK3R1THNtTis0dU9iT2ZodGNXVkxBNVVldExNTHdXczU2NHNDZnYwTHZKVFlXVng0cm9RU3dsV3kzUlJRNmRpL05jejU2b0haN1NGU3VUNERRTHNrdG5mVmpEcXZyc1VITkE5b1JLNzZNR1hIWWlrcVUweGJSbUg2RW9yVFRnRDlXQXBtTW9xZmFBN2tZUGpTUGMxZjQvakNXdWVlY0JqcWZBZkJHTS9paTZlYnFaUkhTdkRTVUxPeWRRNCtBaGUyQ1o0cDNTSzdTV2ZZL0txVUNIYXNpTG1qc0dyRHpHK2hBVkE0ZDFlUUl4c2djcWRQcm1UbW9nL0wvSHdBa0hlVDZwQjhTN0FQWm0xWTM4OHdNd29IM1gwQ09UTjRWVytQRi9KbGtrZWprM0VvdUtacDJURGtuMzVaUFpXMTU5UlJSK2U5ZHVLdDRLR0REWmZocmUrM0JWUDRDeUdqVGc1c2R6eStENmFHSUp1Z1JJeHB1eHBBZUhRPT0ifSx7ImtleSI6ImZsNXh6OGxibnF1ZXFqX2J1bm55Lm1wNCJ9XX0=
+                      X-Amz-Signature: 2709eda54772e70df1c1f0ddc13774ebf68d37b9d5eb8d32de97c2630bba5316
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      type:
+                        type: string
+                      attributes:
+                        type: object
+                        properties:
+                          url:
+                            type: string
+                          Content-Type:
+                            type: string
+                          bucket:
+                            type: string
+                          X-Amz-Algorithm:
+                            type: string
+                          X-Amz-Credential:
+                            type: string
+                          X-Amz-Date:
+                            type: string
+                          X-Amz-Security-Token:
+                            type: string
+                          key:
+                            type: string
+                          Policy:
+                            type: string
+                          X-Amz-Signature:
+                            type: string
+                x-examples:
+                  Example 1:
+                    data:
+                      id: fl5xz8lbnqueqj
+                      type: s3_parameters
+                      attributes:
+                        url: 'https://bucket.s3.eu-west-1.amazonaws.com/'
+                        Content-Type: video/png
+                        bucket: bucket
+                        X-Amz-Algorithm: AWS4-HMAC-SHA256
+                        X-Amz-Credential: ASIAZ25WCZOCITTCVGIC/20221214/eu-west-1/s3/aws4_request
+                        X-Amz-Date: 20221214T142422Z
+                        X-Amz-Security-Token: IQoJb3JpZ2luX2VjEK7//////////wEaCmV1LW5vcnRoLTEiRjBEAiAnr0AXiZFf1pCTg3Q938DzIZNLImu0+Jft+wl/Yl/DXQIgHadthE8Kh0rTZ5ZMJD0kP9fVUogkwegiWDL6U58buZQqjgMI2P//////////ARAAGgw2NzYzMDIzNDMwNDQiDNQk9xQ5JECXb+IM/yriAgvY9Yjo42uGEVUgrNRxqH2VZTGo+bM7jOo5aEDyAHINpt+haXEXk90y5eq7QulBcupalsSHDaYMTmeIvKj88dF/EJfC2zK53/HTO3ICzW7uG6yQJ9VUVrcVIKxK/pgQ6onU6VBJQKf5IBE/cFER/iWdXkNspCNL4lKMj0n9nQOxDquMwzJbpB3jTbRFXyu+WRlY6kL1TTLecxugL86ShbdVBsTzMN9YvB68oo/tpvE2MvGC5UeGcNCGi3i/qSjgLsV/Dy612yTx8dT4Tli6ZBbFTyrt0NbZ4DhlFKqgjHl1s5DyKVwe+f0rTLkSHG3xuWF+tuLsmN+4uObOfhtcWVLA5UetLMLwWs564sCfv0LvJTYWVx4roQSwlWy3RRQ6di/Ncz56oHZ7SFSuT4DQLsktnfVjDqvrsUHNA9oRK76MGXHYikqU0xbRmH6EorTTgD9WApmMoqfaA7kYPjSPc1f4/jCWueecBjqfAfBGM/ii6ebqZRHSvDSULOydQ4+Ahe2CZ4p3SK7SWfY/KqUCHasiLmjsGrDzG+hAVA4d1eQIxsgcqdPrmTmog/L/HwAkHeT6pB8S7APZm1Y388wMwoH3X0COTN4VW+PF/Jlkkejk3EouKZp2TDkn35ZPZW159RRR+e9duKt4KGDDZfhre+3BVP4CyGjTg5sdzy+D6aGIJugRIxpuxpAeHQ==
+                        key: fl5xz8lbnqueqj_bunny.png
+                        Policy: eyJleHBpcmF0aW9uIjoiMjAyMi0xMi0xNFQxNDozNDoyMloiLCJjb25kaXRpb25zIjpbeyJDb250ZW50LVR5cGUiOiJ2aWRlby9tcDQifSx7ImJ1Y2tldCI6IjY3NjMwMjM0MzA0NC1iZW5jaG1hcmstYnVja2V0In0seyJYLUFtei1BbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJYLUFtei1DcmVkZW50aWFsIjoiQVNJQVoyNVdDWk9DSVRUQ1ZHSUMvMjAyMjEyMTQvZXUtbm9ydGgtMS9zMy9hd3M0X3JlcXVlc3QifSx7IlgtQW16LURhdGUiOiIyMDIyMTIxNFQxNDI0MjJaIn0seyJYLUFtei1TZWN1cml0eS1Ub2tlbiI6IklRb0piM0pwWjJsdVgyVmpFSzcvLy8vLy8vLy8vd0VhQ21WMUxXNXZjblJvTFRFaVJqQkVBaUFucjBBWGlaRmYxcENUZzNROTM4RHpJWk5MSW11MCtKZnQrd2wvWWwvRFhRSWdIYWR0aEU4S2gwclRaNVpNSkQwa1A5ZlZVb2drd2VnaVdETDZVNThidVpRcWpnTUkyUC8vLy8vLy8vLy9BUkFBR2d3Mk56WXpNREl6TkRNd05EUWlETlFrOXhRNUpFQ1hiK0lNL3lyaUFndlk5WWpvNDJ1R0VWVWdyTlJ4cUgyVlpUR28rYk03ak9vNWFFRHlBSElOcHQraGFYRVhrOTB5NWVxN1F1bEJjdXBhbHNTSERhWU1UbWVJdktqODhkRi9FSmZDMnpLNTMvSFRPM0lDelc3dUc2eVFKOVZVVnJjVklLeEsvcGdRNm9uVTZWQkpRS2Y1SUJFL2NGRVIvaVdkWGtOc3BDTkw0bEtNajBuOW5RT3hEcXVNd3pKYnBCM2pUYlJGWHl1K1dSbFk2a0wxVFRMZWN4dWdMODZTaGJkVkJzVHpNTjlZdkI2OG9vL3RwdkUyTXZHQzVVZUdjTkNHaTNpL3FTamdMc1YvRHk2MTJ5VHg4ZFQ0VGxpNlpCYkZUeXJ0ME5iWjREaGxGS3FnakhsMXM1RHlLVndlK2YwclRMa1NIRzN4dVdGK3R1THNtTis0dU9iT2ZodGNXVkxBNVVldExNTHdXczU2NHNDZnYwTHZKVFlXVng0cm9RU3dsV3kzUlJRNmRpL05jejU2b0haN1NGU3VUNERRTHNrdG5mVmpEcXZyc1VITkE5b1JLNzZNR1hIWWlrcVUweGJSbUg2RW9yVFRnRDlXQXBtTW9xZmFBN2tZUGpTUGMxZjQvakNXdWVlY0JqcWZBZkJHTS9paTZlYnFaUkhTdkRTVUxPeWRRNCtBaGUyQ1o0cDNTSzdTV2ZZL0txVUNIYXNpTG1qc0dyRHpHK2hBVkE0ZDFlUUl4c2djcWRQcm1UbW9nL0wvSHdBa0hlVDZwQjhTN0FQWm0xWTM4OHdNd29IM1gwQ09UTjRWVytQRi9KbGtrZWprM0VvdUtacDJURGtuMzVaUFpXMTU5UlJSK2U5ZHVLdDRLR0REWmZocmUrM0JWUDRDeUdqVGc1c2R6eStENmFHSUp1Z1JJeHB1eHBBZUhRPT0ifSx7ImtleSI6ImZsNXh6OGxibnF1ZXFqX2J1bm55Lm1wNCJ9XX0=
+                        X-Amz-Signature: 2709eda54772e70df1c1f0ddc13774ebf68d37b9d5eb8d32de97c2630bba5316
+              examples:
+                Example:
+                  value:
+                    data:
+                      id: fl5xz8lbnqueqj
+                      type: s3_parameters
+                      attributes:
+                        url: 'https://bucket.s3.eu-west-1.amazonaws.com/'
+                        Content-Type: video/png
+                        bucket: bucket
+                        X-Amz-Algorithm: AWS4-HMAC-SHA256
+                        X-Amz-Credential: ASIAZ25WCZOCITTCVGIC/20221214/eu-west-1/s3/aws4_request
+                        X-Amz-Date: 20221214T142422Z
+                        X-Amz-Security-Token: IQoJb3JpZ2luX2VjEK7//////////wEaCmV1LW5vcnRoLTEiRjBEAiAnr0AXiZFf1pCTg3Q938DzIZNLImu0+Jft+wl/Yl/DXQIgHadthE8Kh0rTZ5ZMJD0kP9fVUogkwegiWDL6U58buZQqjgMI2P//////////ARAAGgw2NzYzMDIzNDMwNDQiDNQk9xQ5JECXb+IM/yriAgvY9Yjo42uGEVUgrNRxqH2VZTGo+bM7jOo5aEDyAHINpt+haXEXk90y5eq7QulBcupalsSHDaYMTmeIvKj88dF/EJfC2zK53/HTO3ICzW7uG6yQJ9VUVrcVIKxK/pgQ6onU6VBJQKf5IBE/cFER/iWdXkNspCNL4lKMj0n9nQOxDquMwzJbpB3jTbRFXyu+WRlY6kL1TTLecxugL86ShbdVBsTzMN9YvB68oo/tpvE2MvGC5UeGcNCGi3i/qSjgLsV/Dy612yTx8dT4Tli6ZBbFTyrt0NbZ4DhlFKqgjHl1s5DyKVwe+f0rTLkSHG3xuWF+tuLsmN+4uObOfhtcWVLA5UetLMLwWs564sCfv0LvJTYWVx4roQSwlWy3RRQ6di/Ncz56oHZ7SFSuT4DQLsktnfVjDqvrsUHNA9oRK76MGXHYikqU0xbRmH6EorTTgD9WApmMoqfaA7kYPjSPc1f4/jCWueecBjqfAfBGM/ii6ebqZRHSvDSULOydQ4+Ahe2CZ4p3SK7SWfY/KqUCHasiLmjsGrDzG+hAVA4d1eQIxsgcqdPrmTmog/L/HwAkHeT6pB8S7APZm1Y388wMwoH3X0COTN4VW+PF/Jlkkejk3EouKZp2TDkn35ZPZW159RRR+e9duKt4KGDDZfhre+3BVP4CyGjTg5sdzy+D6aGIJugRIxpuxpAeHQ==
+                        key: s3/fl5xz8lbnqueqj_bunny.png
+                        Policy: eyJleHBpcmF0aW9uIjoiMjAyMi0xMi0xNFQxNDozNDoyMloiLCJjb25kaXRpb25zIjpbeyJDb250ZW50LVR5cGUiOiJ2aWRlby9tcDQifSx7ImJ1Y2tldCI6IjY3NjMwMjM0MzA0NC1iZW5jaG1hcmstYnVja2V0In0seyJYLUFtei1BbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJYLUFtei1DcmVkZW50aWFsIjoiQVNJQVoyNVdDWk9DSVRUQ1ZHSUMvMjAyMjEyMTQvZXUtbm9ydGgtMS9zMy9hd3M0X3JlcXVlc3QifSx7IlgtQW16LURhdGUiOiIyMDIyMTIxNFQxNDI0MjJaIn0seyJYLUFtei1TZWN1cml0eS1Ub2tlbiI6IklRb0piM0pwWjJsdVgyVmpFSzcvLy8vLy8vLy8vd0VhQ21WMUxXNXZjblJvTFRFaVJqQkVBaUFucjBBWGlaRmYxcENUZzNROTM4RHpJWk5MSW11MCtKZnQrd2wvWWwvRFhRSWdIYWR0aEU4S2gwclRaNVpNSkQwa1A5ZlZVb2drd2VnaVdETDZVNThidVpRcWpnTUkyUC8vLy8vLy8vLy9BUkFBR2d3Mk56WXpNREl6TkRNd05EUWlETlFrOXhRNUpFQ1hiK0lNL3lyaUFndlk5WWpvNDJ1R0VWVWdyTlJ4cUgyVlpUR28rYk03ak9vNWFFRHlBSElOcHQraGFYRVhrOTB5NWVxN1F1bEJjdXBhbHNTSERhWU1UbWVJdktqODhkRi9FSmZDMnpLNTMvSFRPM0lDelc3dUc2eVFKOVZVVnJjVklLeEsvcGdRNm9uVTZWQkpRS2Y1SUJFL2NGRVIvaVdkWGtOc3BDTkw0bEtNajBuOW5RT3hEcXVNd3pKYnBCM2pUYlJGWHl1K1dSbFk2a0wxVFRMZWN4dWdMODZTaGJkVkJzVHpNTjlZdkI2OG9vL3RwdkUyTXZHQzVVZUdjTkNHaTNpL3FTamdMc1YvRHk2MTJ5VHg4ZFQ0VGxpNlpCYkZUeXJ0ME5iWjREaGxGS3FnakhsMXM1RHlLVndlK2YwclRMa1NIRzN4dVdGK3R1THNtTis0dU9iT2ZodGNXVkxBNVVldExNTHdXczU2NHNDZnYwTHZKVFlXVng0cm9RU3dsV3kzUlJRNmRpL05jejU2b0haN1NGU3VUNERRTHNrdG5mVmpEcXZyc1VITkE5b1JLNzZNR1hIWWlrcVUweGJSbUg2RW9yVFRnRDlXQXBtTW9xZmFBN2tZUGpTUGMxZjQvakNXdWVlY0JqcWZBZkJHTS9paTZlYnFaUkhTdkRTVUxPeWRRNCtBaGUyQ1o0cDNTSzdTV2ZZL0txVUNIYXNpTG1qc0dyRHpHK2hBVkE0ZDFlUUl4c2djcWRQcm1UbW9nL0wvSHdBa0hlVDZwQjhTN0FQWm0xWTM4OHdNd29IM1gwQ09UTjRWVytQRi9KbGtrZWprM0VvdUtacDJURGtuMzVaUFpXMTU5UlJSK2U5ZHVLdDRLR0REWmZocmUrM0JWUDRDeUdqVGc1c2R6eStENmFHSUp1Z1JJeHB1eHBBZUhRPT0ifSx7ImtleSI6ImZsNXh6OGxibnF1ZXFqX2J1bm55Lm1wNCJ9XX0=
+                        X-Amz-Signature: 2709eda54772e70df1c1f0ddc13774ebf68d37b9d5eb8d32de97c2630bba5316
+            HAL:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                  Content-Type:
+                    type: string
+                  bucket:
+                    type: string
+                  X-Amz-Algorithm:
+                    type: string
+                  X-Amz-Credential:
+                    type: string
+                  X-Amz-Date:
+                    type: string
+                  X-Amz-Security-Token:
+                    type: string
+                  key:
+                    type: string
+                  Policy:
+                    type: string
+                  X-Amz-Signature:
+                    type: string
+                x-examples:
+                  Example 1:
+                    url: 'https://bucket.s3.eu-west-1.amazonaws.com/'
+                    Content-Type: video/png
+                    bucket: bucket
+                    X-Amz-Algorithm: AWS4-HMAC-SHA256
+                    X-Amz-Credential: ASIAZ25WCZOCITTCVGIC/20221214/eu-west-1/s3/aws4_request
+                    X-Amz-Date: 20221214T142422Z
+                    X-Amz-Security-Token: IQoJb3JpZ2luX2VjEK7//////////wEaCmV1LW5vcnRoLTEiRjBEAiAnr0AXiZFf1pCTg3Q938DzIZNLImu0+Jft+wl/Yl/DXQIgHadthE8Kh0rTZ5ZMJD0kP9fVUogkwegiWDL6U58buZQqjgMI2P//////////ARAAGgw2NzYzMDIzNDMwNDQiDNQk9xQ5JECXb+IM/yriAgvY9Yjo42uGEVUgrNRxqH2VZTGo+bM7jOo5aEDyAHINpt+haXEXk90y5eq7QulBcupalsSHDaYMTmeIvKj88dF/EJfC2zK53/HTO3ICzW7uG6yQJ9VUVrcVIKxK/pgQ6onU6VBJQKf5IBE/cFER/iWdXkNspCNL4lKMj0n9nQOxDquMwzJbpB3jTbRFXyu+WRlY6kL1TTLecxugL86ShbdVBsTzMN9YvB68oo/tpvE2MvGC5UeGcNCGi3i/qSjgLsV/Dy612yTx8dT4Tli6ZBbFTyrt0NbZ4DhlFKqgjHl1s5DyKVwe+f0rTLkSHG3xuWF+tuLsmN+4uObOfhtcWVLA5UetLMLwWs564sCfv0LvJTYWVx4roQSwlWy3RRQ6di/Ncz56oHZ7SFSuT4DQLsktnfVjDqvrsUHNA9oRK76MGXHYikqU0xbRmH6EorTTgD9WApmMoqfaA7kYPjSPc1f4/jCWueecBjqfAfBGM/ii6ebqZRHSvDSULOydQ4+Ahe2CZ4p3SK7SWfY/KqUCHasiLmjsGrDzG+hAVA4d1eQIxsgcqdPrmTmog/L/HwAkHeT6pB8S7APZm1Y388wMwoH3X0COTN4VW+PF/Jlkkejk3EouKZp2TDkn35ZPZW159RRR+e9duKt4KGDDZfhre+3BVP4CyGjTg5sdzy+D6aGIJugRIxpuxpAeHQ==
+                    key: fl5xz8lbnqueqj_bunny.png
+                    Policy: eyJleHBpcmF0aW9uIjoiMjAyMi0xMi0xNFQxNDozNDoyMloiLCJjb25kaXRpb25zIjpbeyJDb250ZW50LVR5cGUiOiJ2aWRlby9tcDQifSx7ImJ1Y2tldCI6IjY3NjMwMjM0MzA0NC1iZW5jaG1hcmstYnVja2V0In0seyJYLUFtei1BbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJYLUFtei1DcmVkZW50aWFsIjoiQVNJQVoyNVdDWk9DSVRUQ1ZHSUMvMjAyMjEyMTQvZXUtbm9ydGgtMS9zMy9hd3M0X3JlcXVlc3QifSx7IlgtQW16LURhdGUiOiIyMDIyMTIxNFQxNDI0MjJaIn0seyJYLUFtei1TZWN1cml0eS1Ub2tlbiI6IklRb0piM0pwWjJsdVgyVmpFSzcvLy8vLy8vLy8vd0VhQ21WMUxXNXZjblJvTFRFaVJqQkVBaUFucjBBWGlaRmYxcENUZzNROTM4RHpJWk5MSW11MCtKZnQrd2wvWWwvRFhRSWdIYWR0aEU4S2gwclRaNVpNSkQwa1A5ZlZVb2drd2VnaVdETDZVNThidVpRcWpnTUkyUC8vLy8vLy8vLy9BUkFBR2d3Mk56WXpNREl6TkRNd05EUWlETlFrOXhRNUpFQ1hiK0lNL3lyaUFndlk5WWpvNDJ1R0VWVWdyTlJ4cUgyVlpUR28rYk03ak9vNWFFRHlBSElOcHQraGFYRVhrOTB5NWVxN1F1bEJjdXBhbHNTSERhWU1UbWVJdktqODhkRi9FSmZDMnpLNTMvSFRPM0lDelc3dUc2eVFKOVZVVnJjVklLeEsvcGdRNm9uVTZWQkpRS2Y1SUJFL2NGRVIvaVdkWGtOc3BDTkw0bEtNajBuOW5RT3hEcXVNd3pKYnBCM2pUYlJGWHl1K1dSbFk2a0wxVFRMZWN4dWdMODZTaGJkVkJzVHpNTjlZdkI2OG9vL3RwdkUyTXZHQzVVZUdjTkNHaTNpL3FTamdMc1YvRHk2MTJ5VHg4ZFQ0VGxpNlpCYkZUeXJ0ME5iWjREaGxGS3FnakhsMXM1RHlLVndlK2YwclRMa1NIRzN4dVdGK3R1THNtTis0dU9iT2ZodGNXVkxBNVVldExNTHdXczU2NHNDZnYwTHZKVFlXVng0cm9RU3dsV3kzUlJRNmRpL05jejU2b0haN1NGU3VUNERRTHNrdG5mVmpEcXZyc1VITkE5b1JLNzZNR1hIWWlrcVUweGJSbUg2RW9yVFRnRDlXQXBtTW9xZmFBN2tZUGpTUGMxZjQvakNXdWVlY0JqcWZBZkJHTS9paTZlYnFaUkhTdkRTVUxPeWRRNCtBaGUyQ1o0cDNTSzdTV2ZZL0txVUNIYXNpTG1qc0dyRHpHK2hBVkE0ZDFlUUl4c2djcWRQcm1UbW9nL0wvSHdBa0hlVDZwQjhTN0FQWm0xWTM4OHdNd29IM1gwQ09UTjRWVytQRi9KbGtrZWprM0VvdUtacDJURGtuMzVaUFpXMTU5UlJSK2U5ZHVLdDRLR0REWmZocmUrM0JWUDRDeUdqVGc1c2R6eStENmFHSUp1Z1JJeHB1eHBBZUhRPT0ifSx7ImtleSI6ImZsNXh6OGxibnF1ZXFqX2J1bm55Lm1wNCJ9XX0=
+                    X-Amz-Signature: 2709eda54772e70df1c1f0ddc13774ebf68d37b9d5eb8d32de97c2630bba5316
+              examples:
+                Example:
+                  value:
+                    url: 'https://bucket.s3.eu-west-1.amazonaws.com/'
+                    Content-Type: video/png
+                    bucket: bucket
+                    X-Amz-Algorithm: AWS4-HMAC-SHA256
+                    X-Amz-Credential: ASIAZ25WCZOCITTCVGIC/20221214/eu-west-1/s3/aws4_request
+                    X-Amz-Date: 20221214T142422Z
+                    X-Amz-Security-Token: IQoJb3JpZ2luX2VjEK7//////////wEaCmV1LW5vcnRoLTEiRjBEAiAnr0AXiZFf1pCTg3Q938DzIZNLImu0+Jft+wl/Yl/DXQIgHadthE8Kh0rTZ5ZMJD0kP9fVUogkwegiWDL6U58buZQqjgMI2P//////////ARAAGgw2NzYzMDIzNDMwNDQiDNQk9xQ5JECXb+IM/yriAgvY9Yjo42uGEVUgrNRxqH2VZTGo+bM7jOo5aEDyAHINpt+haXEXk90y5eq7QulBcupalsSHDaYMTmeIvKj88dF/EJfC2zK53/HTO3ICzW7uG6yQJ9VUVrcVIKxK/pgQ6onU6VBJQKf5IBE/cFER/iWdXkNspCNL4lKMj0n9nQOxDquMwzJbpB3jTbRFXyu+WRlY6kL1TTLecxugL86ShbdVBsTzMN9YvB68oo/tpvE2MvGC5UeGcNCGi3i/qSjgLsV/Dy612yTx8dT4Tli6ZBbFTyrt0NbZ4DhlFKqgjHl1s5DyKVwe+f0rTLkSHG3xuWF+tuLsmN+4uObOfhtcWVLA5UetLMLwWs564sCfv0LvJTYWVx4roQSwlWy3RRQ6di/Ncz56oHZ7SFSuT4DQLsktnfVjDqvrsUHNA9oRK76MGXHYikqU0xbRmH6EorTTgD9WApmMoqfaA7kYPjSPc1f4/jCWueecBjqfAfBGM/ii6ebqZRHSvDSULOydQ4+Ahe2CZ4p3SK7SWfY/KqUCHasiLmjsGrDzG+hAVA4d1eQIxsgcqdPrmTmog/L/HwAkHeT6pB8S7APZm1Y388wMwoH3X0COTN4VW+PF/Jlkkejk3EouKZp2TDkn35ZPZW159RRR+e9duKt4KGDDZfhre+3BVP4CyGjTg5sdzy+D6aGIJugRIxpuxpAeHQ==
+                    key: s3/fl5xz8lbnqueqj_bunny.png
+                    Policy: eyJleHBpcmF0aW9uIjoiMjAyMi0xMi0xNFQxNDozNDoyMloiLCJjb25kaXRpb25zIjpbeyJDb250ZW50LVR5cGUiOiJ2aWRlby9tcDQifSx7ImJ1Y2tldCI6IjY3NjMwMjM0MzA0NC1iZW5jaG1hcmstYnVja2V0In0seyJYLUFtei1BbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJYLUFtei1DcmVkZW50aWFsIjoiQVNJQVoyNVdDWk9DSVRUQ1ZHSUMvMjAyMjEyMTQvZXUtbm9ydGgtMS9zMy9hd3M0X3JlcXVlc3QifSx7IlgtQW16LURhdGUiOiIyMDIyMTIxNFQxNDI0MjJaIn0seyJYLUFtei1TZWN1cml0eS1Ub2tlbiI6IklRb0piM0pwWjJsdVgyVmpFSzcvLy8vLy8vLy8vd0VhQ21WMUxXNXZjblJvTFRFaVJqQkVBaUFucjBBWGlaRmYxcENUZzNROTM4RHpJWk5MSW11MCtKZnQrd2wvWWwvRFhRSWdIYWR0aEU4S2gwclRaNVpNSkQwa1A5ZlZVb2drd2VnaVdETDZVNThidVpRcWpnTUkyUC8vLy8vLy8vLy9BUkFBR2d3Mk56WXpNREl6TkRNd05EUWlETlFrOXhRNUpFQ1hiK0lNL3lyaUFndlk5WWpvNDJ1R0VWVWdyTlJ4cUgyVlpUR28rYk03ak9vNWFFRHlBSElOcHQraGFYRVhrOTB5NWVxN1F1bEJjdXBhbHNTSERhWU1UbWVJdktqODhkRi9FSmZDMnpLNTMvSFRPM0lDelc3dUc2eVFKOVZVVnJjVklLeEsvcGdRNm9uVTZWQkpRS2Y1SUJFL2NGRVIvaVdkWGtOc3BDTkw0bEtNajBuOW5RT3hEcXVNd3pKYnBCM2pUYlJGWHl1K1dSbFk2a0wxVFRMZWN4dWdMODZTaGJkVkJzVHpNTjlZdkI2OG9vL3RwdkUyTXZHQzVVZUdjTkNHaTNpL3FTamdMc1YvRHk2MTJ5VHg4ZFQ0VGxpNlpCYkZUeXJ0ME5iWjREaGxGS3FnakhsMXM1RHlLVndlK2YwclRMa1NIRzN4dVdGK3R1THNtTis0dU9iT2ZodGNXVkxBNVVldExNTHdXczU2NHNDZnYwTHZKVFlXVng0cm9RU3dsV3kzUlJRNmRpL05jejU2b0haN1NGU3VUNERRTHNrdG5mVmpEcXZyc1VITkE5b1JLNzZNR1hIWWlrcVUweGJSbUg2RW9yVFRnRDlXQXBtTW9xZmFBN2tZUGpTUGMxZjQvakNXdWVlY0JqcWZBZkJHTS9paTZlYnFaUkhTdkRTVUxPeWRRNCtBaGUyQ1o0cDNTSzdTV2ZZL0txVUNIYXNpTG1qc0dyRHpHK2hBVkE0ZDFlUUl4c2djcWRQcm1UbW9nL0wvSHdBa0hlVDZwQjhTN0FQWm0xWTM4OHdNd29IM1gwQ09UTjRWVytQRi9KbGtrZWprM0VvdUtacDJURGtuMzVaUFpXMTU5UlJSK2U5ZHVLdDRLR0REWmZocmUrM0JWUDRDeUdqVGc1c2R6eStENmFHSUp1Z1JJeHB1eHBBZUhRPT0ifSx7ImtleSI6ImZsNXh6OGxibnF1ZXFqX2J1bm55Lm1wNCJ9XX0=
+                    X-Amz-Signature: 2709eda54772e70df1c1f0ddc13774ebf68d37b9d5eb8d32de97c2630bba5316
+      operationId: get-s3-params
+      parameters:
+        - schema:
+            type: string
+            example: bunny.png
+          in: query
+          name: name
+          description: Name of the file that needs uploading.
+          required: true
+        - schema:
+            type: string
+            example: image/png
+          in: query
+          name: type
+          description: Type of the file that needs uploading.
+          required: true
+      security: []
+    parameters: []
+  /s3/fl5xz8lbnqueqj_bunny.png:
+    post:
+      summary: POST Upload endpoint
+      tags:
+        - S3
+      responses:
+        '200':
+          description: OK
+      operationId: post-s3-upload
+      description: This is just documentation of the S3 endpoint. The backend DOES not implement this route.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-examples:
+                Example 1:
+                  url: 'https://bucket.s3.eu-west-1.amazonaws.com/'
+                  Content-Type: video/png
+                  bucket: bucket
+                  X-Amz-Algorithm: AWS4-HMAC-SHA256
+                  X-Amz-Credential: ASIAZ25WCZOCITTCVGIC/20221214/eu-west-1/s3/aws4_request
+                  X-Amz-Date: 20221214T142422Z
+                  X-Amz-Security-Token: IQoJb3JpZ2luX2VjEK7//////////wEaCmV1LW5vcnRoLTEiRjBEAiAnr0AXiZFf1pCTg3Q938DzIZNLImu0+Jft+wl/Yl/DXQIgHadthE8Kh0rTZ5ZMJD0kP9fVUogkwegiWDL6U58buZQqjgMI2P//////////ARAAGgw2NzYzMDIzNDMwNDQiDNQk9xQ5JECXb+IM/yriAgvY9Yjo42uGEVUgrNRxqH2VZTGo+bM7jOo5aEDyAHINpt+haXEXk90y5eq7QulBcupalsSHDaYMTmeIvKj88dF/EJfC2zK53/HTO3ICzW7uG6yQJ9VUVrcVIKxK/pgQ6onU6VBJQKf5IBE/cFER/iWdXkNspCNL4lKMj0n9nQOxDquMwzJbpB3jTbRFXyu+WRlY6kL1TTLecxugL86ShbdVBsTzMN9YvB68oo/tpvE2MvGC5UeGcNCGi3i/qSjgLsV/Dy612yTx8dT4Tli6ZBbFTyrt0NbZ4DhlFKqgjHl1s5DyKVwe+f0rTLkSHG3xuWF+tuLsmN+4uObOfhtcWVLA5UetLMLwWs564sCfv0LvJTYWVx4roQSwlWy3RRQ6di/Ncz56oHZ7SFSuT4DQLsktnfVjDqvrsUHNA9oRK76MGXHYikqU0xbRmH6EorTTgD9WApmMoqfaA7kYPjSPc1f4/jCWueecBjqfAfBGM/ii6ebqZRHSvDSULOydQ4+Ahe2CZ4p3SK7SWfY/KqUCHasiLmjsGrDzG+hAVA4d1eQIxsgcqdPrmTmog/L/HwAkHeT6pB8S7APZm1Y388wMwoH3X0COTN4VW+PF/Jlkkejk3EouKZp2TDkn35ZPZW159RRR+e9duKt4KGDDZfhre+3BVP4CyGjTg5sdzy+D6aGIJugRIxpuxpAeHQ==
+                  key: fl5xz8lbnqueqj_bunny.png
+                  Policy: eyJleHBpcmF0aW9uIjoiMjAyMi0xMi0xNFQxNDozNDoyMloiLCJjb25kaXRpb25zIjpbeyJDb250ZW50LVR5cGUiOiJ2aWRlby9tcDQifSx7ImJ1Y2tldCI6IjY3NjMwMjM0MzA0NC1iZW5jaG1hcmstYnVja2V0In0seyJYLUFtei1BbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJYLUFtei1DcmVkZW50aWFsIjoiQVNJQVoyNVdDWk9DSVRUQ1ZHSUMvMjAyMjEyMTQvZXUtbm9ydGgtMS9zMy9hd3M0X3JlcXVlc3QifSx7IlgtQW16LURhdGUiOiIyMDIyMTIxNFQxNDI0MjJaIn0seyJYLUFtei1TZWN1cml0eS1Ub2tlbiI6IklRb0piM0pwWjJsdVgyVmpFSzcvLy8vLy8vLy8vd0VhQ21WMUxXNXZjblJvTFRFaVJqQkVBaUFucjBBWGlaRmYxcENUZzNROTM4RHpJWk5MSW11MCtKZnQrd2wvWWwvRFhRSWdIYWR0aEU4S2gwclRaNVpNSkQwa1A5ZlZVb2drd2VnaVdETDZVNThidVpRcWpnTUkyUC8vLy8vLy8vLy9BUkFBR2d3Mk56WXpNREl6TkRNd05EUWlETlFrOXhRNUpFQ1hiK0lNL3lyaUFndlk5WWpvNDJ1R0VWVWdyTlJ4cUgyVlpUR28rYk03ak9vNWFFRHlBSElOcHQraGFYRVhrOTB5NWVxN1F1bEJjdXBhbHNTSERhWU1UbWVJdktqODhkRi9FSmZDMnpLNTMvSFRPM0lDelc3dUc2eVFKOVZVVnJjVklLeEsvcGdRNm9uVTZWQkpRS2Y1SUJFL2NGRVIvaVdkWGtOc3BDTkw0bEtNajBuOW5RT3hEcXVNd3pKYnBCM2pUYlJGWHl1K1dSbFk2a0wxVFRMZWN4dWdMODZTaGJkVkJzVHpNTjlZdkI2OG9vL3RwdkUyTXZHQzVVZUdjTkNHaTNpL3FTamdMc1YvRHk2MTJ5VHg4ZFQ0VGxpNlpCYkZUeXJ0ME5iWjREaGxGS3FnakhsMXM1RHlLVndlK2YwclRMa1NIRzN4dVdGK3R1THNtTis0dU9iT2ZodGNXVkxBNVVldExNTHdXczU2NHNDZnYwTHZKVFlXVng0cm9RU3dsV3kzUlJRNmRpL05jejU2b0haN1NGU3VUNERRTHNrdG5mVmpEcXZyc1VITkE5b1JLNzZNR1hIWWlrcVUweGJSbUg2RW9yVFRnRDlXQXBtTW9xZmFBN2tZUGpTUGMxZjQvakNXdWVlY0JqcWZBZkJHTS9paTZlYnFaUkhTdkRTVUxPeWRRNCtBaGUyQ1o0cDNTSzdTV2ZZL0txVUNIYXNpTG1qc0dyRHpHK2hBVkE0ZDFlUUl4c2djcWRQcm1UbW9nL0wvSHdBa0hlVDZwQjhTN0FQWm0xWTM4OHdNd29IM1gwQ09UTjRWVytQRi9KbGtrZWprM0VvdUtacDJURGtuMzVaUFpXMTU5UlJSK2U5ZHVLdDRLR0REWmZocmUrM0JWUDRDeUdqVGc1c2R6eStENmFHSUp1Z1JJeHB1eHBBZUhRPT0ifSx7ImtleSI6ImZsNXh6OGxibnF1ZXFqX2J1bm55Lm1wNCJ9XX0=
+                  X-Amz-Signature: 2709eda54772e70df1c1f0ddc13774ebf68d37b9d5eb8d32de97c2630bba5316
+              properties:
+                Content-Type:
+                  type: string
+                X-Amz-Algorithm:
+                  type: string
+                X-Amz-Credential:
+                  type: string
+                X-Amz-Date:
+                  type: string
+                X-Amz-Security-Token:
+                  type: string
+                Policy:
+                  type: string
+                X-Amz-Signature:
+                  type: string
+            examples:
+              Example:
+                value:
+                  Content-Type: video/png
+                  X-Amz-Algorithm: AWS4-HMAC-SHA256
+                  X-Amz-Credential: ASIAZ25WCZOCITTCVGIC/20221214/eu-west-1/s3/aws4_request
+                  X-Amz-Date: 20221214T142422Z
+                  X-Amz-Security-Token: IQoJb3JpZ2luX2VjEK7//////////wEaCmV1LW5vcnRoLTEiRjBEAiAnr0AXiZFf1pCTg3Q938DzIZNLImu0+Jft+wl/Yl/DXQIgHadthE8Kh0rTZ5ZMJD0kP9fVUogkwegiWDL6U58buZQqjgMI2P//////////ARAAGgw2NzYzMDIzNDMwNDQiDNQk9xQ5JECXb+IM/yriAgvY9Yjo42uGEVUgrNRxqH2VZTGo+bM7jOo5aEDyAHINpt+haXEXk90y5eq7QulBcupalsSHDaYMTmeIvKj88dF/EJfC2zK53/HTO3ICzW7uG6yQJ9VUVrcVIKxK/pgQ6onU6VBJQKf5IBE/cFER/iWdXkNspCNL4lKMj0n9nQOxDquMwzJbpB3jTbRFXyu+WRlY6kL1TTLecxugL86ShbdVBsTzMN9YvB68oo/tpvE2MvGC5UeGcNCGi3i/qSjgLsV/Dy612yTx8dT4Tli6ZBbFTyrt0NbZ4DhlFKqgjHl1s5DyKVwe+f0rTLkSHG3xuWF+tuLsmN+4uObOfhtcWVLA5UetLMLwWs564sCfv0LvJTYWVx4roQSwlWy3RRQ6di/Ncz56oHZ7SFSuT4DQLsktnfVjDqvrsUHNA9oRK76MGXHYikqU0xbRmH6EorTTgD9WApmMoqfaA7kYPjSPc1f4/jCWueecBjqfAfBGM/ii6ebqZRHSvDSULOydQ4+Ahe2CZ4p3SK7SWfY/KqUCHasiLmjsGrDzG+hAVA4d1eQIxsgcqdPrmTmog/L/HwAkHeT6pB8S7APZm1Y388wMwoH3X0COTN4VW+PF/Jlkkejk3EouKZp2TDkn35ZPZW159RRR+e9duKt4KGDDZfhre+3BVP4CyGjTg5sdzy+D6aGIJugRIxpuxpAeHQ==
+                  key: fl5xz8lbnqueqj_bunny.png
+                  Policy: eyJleHBpcmF0aW9uIjoiMjAyMi0xMi0xNFQxNDozNDoyMloiLCJjb25kaXRpb25zIjpbeyJDb250ZW50LVR5cGUiOiJ2aWRlby9tcDQifSx7ImJ1Y2tldCI6IjY3NjMwMjM0MzA0NC1iZW5jaG1hcmstYnVja2V0In0seyJYLUFtei1BbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJYLUFtei1DcmVkZW50aWFsIjoiQVNJQVoyNVdDWk9DSVRUQ1ZHSUMvMjAyMjEyMTQvZXUtbm9ydGgtMS9zMy9hd3M0X3JlcXVlc3QifSx7IlgtQW16LURhdGUiOiIyMDIyMTIxNFQxNDI0MjJaIn0seyJYLUFtei1TZWN1cml0eS1Ub2tlbiI6IklRb0piM0pwWjJsdVgyVmpFSzcvLy8vLy8vLy8vd0VhQ21WMUxXNXZjblJvTFRFaVJqQkVBaUFucjBBWGlaRmYxcENUZzNROTM4RHpJWk5MSW11MCtKZnQrd2wvWWwvRFhRSWdIYWR0aEU4S2gwclRaNVpNSkQwa1A5ZlZVb2drd2VnaVdETDZVNThidVpRcWpnTUkyUC8vLy8vLy8vLy9BUkFBR2d3Mk56WXpNREl6TkRNd05EUWlETlFrOXhRNUpFQ1hiK0lNL3lyaUFndlk5WWpvNDJ1R0VWVWdyTlJ4cUgyVlpUR28rYk03ak9vNWFFRHlBSElOcHQraGFYRVhrOTB5NWVxN1F1bEJjdXBhbHNTSERhWU1UbWVJdktqODhkRi9FSmZDMnpLNTMvSFRPM0lDelc3dUc2eVFKOVZVVnJjVklLeEsvcGdRNm9uVTZWQkpRS2Y1SUJFL2NGRVIvaVdkWGtOc3BDTkw0bEtNajBuOW5RT3hEcXVNd3pKYnBCM2pUYlJGWHl1K1dSbFk2a0wxVFRMZWN4dWdMODZTaGJkVkJzVHpNTjlZdkI2OG9vL3RwdkUyTXZHQzVVZUdjTkNHaTNpL3FTamdMc1YvRHk2MTJ5VHg4ZFQ0VGxpNlpCYkZUeXJ0ME5iWjREaGxGS3FnakhsMXM1RHlLVndlK2YwclRMa1NIRzN4dVdGK3R1THNtTis0dU9iT2ZodGNXVkxBNVVldExNTHdXczU2NHNDZnYwTHZKVFlXVng0cm9RU3dsV3kzUlJRNmRpL05jejU2b0haN1NGU3VUNERRTHNrdG5mVmpEcXZyc1VITkE5b1JLNzZNR1hIWWlrcVUweGJSbUg2RW9yVFRnRDlXQXBtTW9xZmFBN2tZUGpTUGMxZjQvakNXdWVlY0JqcWZBZkJHTS9paTZlYnFaUkhTdkRTVUxPeWRRNCtBaGUyQ1o0cDNTSzdTV2ZZL0txVUNIYXNpTG1qc0dyRHpHK2hBVkE0ZDFlUUl4c2djcWRQcm1UbW9nL0wvSHdBa0hlVDZwQjhTN0FQWm0xWTM4OHdNd29IM1gwQ09UTjRWVytQRi9KbGtrZWprM0VvdUtacDJURGtuMzVaUFpXMTU5UlJSK2U5ZHVLdDRLR0REWmZocmUrM0JWUDRDeUdqVGc1c2R6eStENmFHSUp1Z1JJeHB1eHBBZUhRPT0ifSx7ImtleSI6ImZsNXh6OGxibnF1ZXFqX2J1bm55Lm1wNCJ9XX0=
+                  X-Amz-Signature: 2709eda54772e70df1c1f0ddc13774ebf68d37b9d5eb8d32de97c2630bba5316
+        description: ''
+    parameters: []
+    put:
+      summary: PUT Upload endpoint
+      tags:
+        - S3
+      responses:
+        '200':
+          description: OK
+      operationId: put-s3-upload
+      description: This is just documentation of the S3 endpoint. The backend DOES not implement this route.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: X-Amz-Algorithm
+        - schema:
+            type: string
+          in: query
+          name: X-Amz-Credential
+        - schema:
+            type: string
+          in: query
+          name: X-Amz-Date
+        - schema:
+            type: string
+          in: query
+          name: X-Amz-Expires
+        - schema:
+            type: string
+          in: query
+          name: X-Amz-Signature
+        - schema:
+            type: string
+          in: query
+          name: X-Amz-SignedHeaders
+  /s3/form:
+    post:
+      summary: Create Resource with file url
+      operationId: post-s3-form
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                image_url:
+                  type: string
+                title:
+                  type: string
+                type:
+                  type: string
+                size:
+                  type: integer
+              x-examples:
+                Example 1:
+                  image_url: bla
+                  title: title
+                  type: type
+                  size: 12345
+            examples:
+              Example 1:
+                value:
+                  image_url: 'https://bucket.s3.eu-west-1.amazonaws.com/s3/fl5xz8lbnqueqj_bunny.png'
+                  title: Bunny
+                  type: image/png
+                  size: 12345
+        description: ''
+      tags:
+        - S3
+  /s3/presigned_url:
+    get:
+      summary: Generate Presigned URL
+      tags:
+        - S3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+              examples:
+                Example:
+                  value:
+                    url: 'https://bucket.s3.eu-west-1.amazonaws.com/s3/fl5xz8lbnqueqj_bunny.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJJWZ7B6WCRGMKFGQ%2F20180210%2Feu-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180210T171315Z&X-Amz-Expires=1800&X-Amz-Signature=12b74b0788aa036bc7c3d03b3f20c61f1f91cc9ad8873e3314255dc479a25351&X-Amz-SignedHeaders=host'
+      operationId: get-s3-url
+      parameters:
+        - schema:
+            type: string
+            example: bunny.png
+          in: query
+          name: name
+        - schema:
+            type: string
+            example: image/png
+          in: query
+          name: type
+    parameters: []

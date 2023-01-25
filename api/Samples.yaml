@@ -1,0 +1,1372 @@
+openapi: 3.0.0
+x-stoplight:
+  id: gyibfs91n1ast
+info:
+  title: Examples
+  version: '1.0'
+  contact:
+    name: Stef
+  description: |-
+    - Documentation: 
+      - Code First
+    - Request/Response Format:
+      - JSON:API
+      - HAL
+    - URL Case:
+      - snake_case
+    - Resource URI Format primarily:
+      - plural
+    - Authentication:
+      - Authorization Header
+    - Pagination:
+      - page-based:
+        - default page number - 1
+        - default page size - 10
+    - Sorting:
+      - SHORT with commas
+servers:
+  - url: 'https://infinum.com'
+tags:
+  - name: Samples
+  - name: Samples Resource
+paths:
+  /samples/collection:
+    get:
+      summary: Collection of resources
+      responses:
+        '200':
+          description: 200 Response
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        id:
+                          type: integer
+                        attributes:
+                          $ref: './Shared.yaml#/components/schemas/Lecture'
+                        links:
+                          type: object
+                          properties:
+                            self:
+                              type: string
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                      next:
+                        type: string
+                      first:
+                        type: string
+                      last:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      total_count:
+                        type: integer
+              examples:
+                '?page[number]=2&page[size]=2':
+                  value:
+                    data:
+                      - id: 3
+                        type: samples/lecture
+                        attributes:
+                          title: Consistency and Fairness in Introductory Physics Course Grades
+                          image_url: 'https://assets.infinum.com/lecture/3/poster.png'
+                          held_at: '2021-03-10'
+                          library: true
+                        links:
+                          self: 'https://infinum.com/samples/lectures/3'
+                      - id: 4
+                        type: samples/lecture
+                        attributes:
+                          title: 'Aqueous alteration of layered deposits within Sera and Jiji, Mars'
+                          image_url: 'https://assets.infinum.com/lecture/4/poster.jpg'
+                          held_at: '2021-09-15'
+                          library: true
+                        links:
+                          self: 'https://infinum.com/samples/lectures/4'
+                    links:
+                      self: 'https://infinum.com/samples/lectures?page[number]=2&page[size]=2'
+                      next: 'https://infinum.com/samples/lectures?page[number]=3&page[size]=2'
+                      first: 'https://infinum.com/samples/lectures?page[number]=1&page[size]=2'
+                      last: 'https://infinum.com/samples/lectures?page[number]=10&page[size]=2'
+                    meta:
+                      total_count: 21
+                '?page[after]=3&page[size]=2':
+                  description: 'https://infinum.com/samples/lectures?page[after]=3'
+                  value:
+                    data:
+                      - id: 4
+                        type: samples/lecture
+                        attributes:
+                          title: 'Aqueous alteration of layered deposits within Sera and Jiji, Mars'
+                          image_url: 'https://assets.infinum.com/lecture/4/poster.jpg'
+                          held_at: '2021-09-15'
+                          library: true
+                        links:
+                          self: 'https://infinum.com/samples/lectures/4'
+                      - id: 5
+                        type: samples/lecture
+                        attributes:
+                          title: 'An Asynchronous, Interactive, Get-The-Facts-Out Activity and More'
+                          image_url: 'https://assets.infinum.com/lecture/5/poster.jpg'
+                          held_at: '2021-01-10'
+                          library: true
+                        links:
+                          self: 'https://infinum.com/samples/lectures/5'
+                    links:
+                      self: 'https://infinum.com/samples/lectures?page[after]=3&page[size]=2'
+                      next: 'https://infinum.com/samples/lectures?page[after]=5&page[size]=2'
+                      prev: 'https://infinum.com/samples/lectures?page[before]=4&page[size]=2'
+                    meta:
+                      total_count: 21
+                '?filter[name]=adventures&page[size]=1':
+                  value:
+                    value:
+                      data:
+                        - id: 1
+                          type: samples/lecture
+                          attributes:
+                            title: Adventures in District and State-Level Advocacy
+                            image_url: 'https://assets.infinum.com/lecture/1/poster.jpg'
+                            held_at: '2021-03-11'
+                            library: true
+                          links:
+                            self: 'https://infinum.com/samples/lectures/1'
+                      links:
+                        self: 'https://infinum.com/samples/lectures??filter[name]=adventures&page[size]=1'
+                        next: 'https://infinum.com/samples/lectures??filter[name]=adventures&page[size]=1&page[number]=2'
+                        last: 'https://infinum.com/samples/lectures??filter[name]=adventures&page[size]=1&page[number]=3'
+                      meta:
+                        total_count: 3
+                '?sort=name&page[size]=2':
+                  value:
+                    data:
+                      - id: 1
+                        type: samples/lecture
+                        attributes:
+                          title: Adventures in District and State-Level Advocacy
+                          image_url: 'https://assets.infinum.com/lecture/1/poster.jpg'
+                          held_at: '2021-03-11'
+                          library: true
+                        links:
+                          self: 'https://infinum.com/samples/lectures/1'
+                      - id: 5
+                        type: samples/lecture
+                        attributes:
+                          title: 'An Asynchronous, Interactive, Get-The-Facts-Out Activity and More'
+                          image_url: 'https://assets.infinum.com/lecture/5/poster.jpg'
+                          held_at: '2021-01-10'
+                          library: true
+                        links:
+                          self: 'https://infinum.com/samples/lectures/4'
+                    links:
+                      self: 'https://infinum.com/samples/lectures?sort=name&page[size]=2'
+                      next: 'https://infinum.com/samples/lectures?sort=name&page[size]=2&page[number]=2'
+                      last: 'https://infinum.com/samples/lectures?sort=name&page[size]=2&page[number]=10'
+                    meta:
+                      total_count: 21
+            HAL:
+              schema:
+                type: object
+                properties:
+                  _embedded:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          allOf:
+                            - type: object
+                              properties:
+                                id:
+                                  type: integer
+                            - $ref: './Shared.yaml#/components/schemas/Lecture'
+                      _meta:
+                        type: object
+                        properties:
+                          total_count:
+                            type: integer
+                  _links:
+                    allOf:
+                      - type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              title: Link Object
+                              type: object
+                              properties:
+                                self:
+                                  type: object
+                                  properties:
+                                    href:
+                                      type: string
+                      - $ref: './Shared.yaml#/components/schemas/hal-links'
+              examples:
+                '?page[number]=2&page[size]=2':
+                  value:
+                    _embedded:
+                      items:
+                        - id: 3
+                          title: Consistency and Fairness in Introductory Physics Course Grades
+                          image_url: 'https://assets.infinum.com/lecture/3/poster.png'
+                          held_at: '2021-03-10'
+                          library: true
+                        - id: 4
+                          title: 'Aqueous alteration of layered deposits within Sera and Jiji, Mars'
+                          image_url: 'https://assets.infinum.com/lecture/4/poster.jpg'
+                          held_at: '2021-09-15'
+                          library: true
+                      _meta:
+                        total_count: 21
+                    _links:
+                      items:
+                        - self:
+                            href: 'https://infinum.com/samples/lectures/3'
+                        - self:
+                            href: 'https://infinum.com/samples/lectures/4'
+                      self:
+                        href: 'http://infinum.com/samples/lectures?page[number]=2&page[size]=2'
+                      next:
+                        href: 'http://infinum.com/samples/lectures?page[number]=2&page[size]=2'
+                      first:
+                        href: 'http://infinum.com/samples/lectures?page[number]=1&page[size]=2'
+                      last:
+                        href: 'http://infinum.com/samples/lectures?page[number]=10&page[size]=2'
+                '?page[after]=3&page[size]=2':
+                  value:
+                    _embedded:
+                      items:
+                        - id: 4
+                          title: 'Aqueous alteration of layered deposits within Sera and Jiji, Mars'
+                          image_url: 'https://assets.infinum.com/lecture/4/poster.jpg'
+                          held_at: '2021-09-15'
+                          library: true
+                        - id: 5
+                          title: 'An Asynchronous, Interactive, Get-The-Facts-Out Activity and More'
+                          image_url: 'https://assets.infinum.com/lecture/5/poster.jpg'
+                          held_at: '2021-01-10'
+                          library: true
+                      _meta:
+                        total_count: 21
+                    _links:
+                      items:
+                        - self:
+                            href: 'https://infinum.com/samples/lectures/4'
+                        - self:
+                            href: 'https://infinum.com/samples/lectures/5'
+                      self:
+                        href: 'http://infinum.com/samples/lectures?page[after]=3&page[size]=2'
+                      next:
+                        href: 'http://infinum.com/samples/lectures?page[after]=5&page[size]=2'
+                      prev:
+                        href: 'http://infinum.com/samples/lectures?page[before]=4&page[size]=2'
+                '?filter[name]=adventures&page[size]=1':
+                  value:
+                    _embedded:
+                      items:
+                        - id: 1
+                          title: 'An Asynchronous, Interactive, Get-The-Facts-Out Activity and More'
+                          image_url: 'https://assets.infinum.com/lecture/5/poster.jpg'
+                          held_at: '2021-01-10'
+                          library: true
+                      _meta:
+                        total_count: 3
+                    _links:
+                      items:
+                        - self:
+                            href: 'https://infinum.com/samples/lectures/1'
+                      self:
+                        href: 'http://infinum.com/samples/lectures?filter[name]=adventures&page[size]=1'
+                      next:
+                        href: 'http://infinum.com/samples/lectures?filter[name]=adventures&page[size]=1&page[number]=1'
+                      last:
+                        href: 'http://infinum.com/samples/lectures?filter[name]=adventures&page[size]=1&page[number]=3'
+                '?sort=name&page[size]=2':
+                  value:
+                    _embedded:
+                      items:
+                        - id: 4
+                          title: Adventures in District and State-Level Advocacy
+                          image_url: 'https://assets.infinum.com/lecture/1/poster.jpg'
+                          held_at: '2021-03-11'
+                          library: true
+                        - id: 5
+                          title: 'An Asynchronous, Interactive, Get-The-Facts-Out Activity and More'
+                          image_url: 'https://assets.infinum.com/lecture/5/poster.jpg'
+                          held_at: '2021-01-10'
+                          library: true
+                      _meta:
+                        total_count: 21
+                    _links:
+                      items:
+                        - self:
+                            href: 'https://infinum.com/samples/lectures/4'
+                        - self:
+                            href: 'https://infinum.com/samples/lectures/5'
+                      self:
+                        href: 'http://infinum.com/samples/lectures?sort=name&page[size]=2'
+                      next:
+                        href: 'http://infinum.com/samples/lectures?sort=name&page[size]=2&page[number]=2'
+                      last:
+                        href: 'http://infinum.com/samples/lectures?sort=name&page[size]=2&page[number]=10'
+      tags:
+        - Samples
+      operationId: sample-collection-resource
+      description: |-
+        [Samples] Collection resource
+
+        Sample resource: Lecture
+      parameters:
+        - $ref: './Shared.yaml#/components/parameters/page_number'
+        - $ref: './Shared.yaml#/components/parameters/page_size'
+        - $ref: './Shared.yaml#/components/parameters/sort'
+        - $ref: './Shared.yaml#/components/parameters/filter'
+        - $ref: './Shared.yaml#/components/parameters/page_after'
+        - $ref: './Shared.yaml#/components/parameters/page_before'
+    parameters: []
+  /samples/compound_collection:
+    get:
+      summary: Collection of compound resources
+      responses:
+        '200':
+          description: 200 Response
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        id:
+                          type: integer
+                        attributes:
+                          $ref: './Shared.yaml#/components/schemas/Lecture'
+                        links:
+                          type: object
+                          properties:
+                            self:
+                              type: string
+                        relationships:
+                          type: object
+                          properties:
+                            event:
+                              type: object
+                              properties:
+                                data:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    type:
+                                      type: string
+                                links:
+                                  type: object
+                                  properties:
+                                    self:
+                                      type: string
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                      next:
+                        type: string
+                      first:
+                        type: string
+                      last:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      total_count:
+                        type: integer
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                        - title: Event
+                          properties:
+                            id:
+                              type: integer
+                            type:
+                              type: string
+                            attributes:
+                              type: object
+                              properties:
+                                title:
+                                  type: string
+                      type: object
+              examples:
+                Example:
+                  value:
+                    data:
+                      - id: 1
+                        type: samples/lecture
+                        attributes:
+                          title: This is a lecture
+                          image_url: 'https://link_to_s3/image.png'
+                          held_at: '2019-08-24'
+                          library: true
+                        relationships:
+                          event:
+                            data:
+                              id: 2
+                              type: samples/event
+                            links:
+                              self: 'https://example/samples/events/2'
+                      - id: 2
+                        type: samples/lecture
+                        attributes:
+                          title: This is another lecture
+                          image_url: 'https://link_to_s3/image.png'
+                          held_at: '2019-08-25'
+                          library: true
+                        relationships:
+                          event:
+                            data:
+                              id: 2
+                              type: samples/event
+                            links:
+                              self: 'https://example/samples/events/2'
+                    links:
+                      self: 'https://infinum.com/samples/lectures'
+                      next: 'https://infinum.com/samples/lectures?page[number]=2'
+                      first: 'https://infinum.com/samples/lectures?page[number]=1'
+                      last: 'https://infinum.com/samples/lectures?page[number]=10'
+                    meta:
+                      total_count: 123
+                    included:
+                      - id: 2
+                        type: samples/event
+                        attributes:
+                          title: Event name
+            HAL:
+              schema:
+                type: object
+                properties:
+                  _embedded:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          allOf:
+                            - $ref: './Shared.yaml#/components/schemas/Lecture'
+                            - type: object
+                              properties:
+                                id:
+                                  type: integer
+                                _embedded:
+                                  type: object
+                                  properties:
+                                    event:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: integer
+                                        title:
+                                          type: string
+                                        _links:
+                                          type: object
+                                          properties:
+                                            self:
+                                              type: object
+                                              properties:
+                                                href:
+                                                  type: string
+                      meta:
+                        type: object
+                        properties:
+                          total_count:
+                            type: integer
+                  _links:
+                    allOf:
+                      - type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              title: Link Object
+                              type: object
+                              properties:
+                                self:
+                                  type: object
+                                  properties:
+                                    href:
+                                      type: string
+                      - $ref: './Shared.yaml#/components/schemas/hal-links'
+              examples:
+                Example:
+                  value:
+                    _embedded:
+                      items:
+                        - id: 1
+                          title: This is a lecture
+                          image_url: 'https://link_to_s3/image.png'
+                          held_at: '2019-08-24'
+                          library: true
+                          _embedded:
+                            event:
+                              id: 2
+                              title: Event name
+                              _links:
+                                self:
+                                  href: 'https://example/samples/events/2'
+                        - id: 2
+                          title: This is a another lecture
+                          image_url: 'https://link_to_s3/image2.png'
+                          held_at: '2019-08-24'
+                          library: true
+                          _embedded:
+                            event:
+                              id: 2
+                              title: Event name
+                              _links:
+                                self:
+                                  href: 'https://example/samples/events/2'
+                      meta:
+                        total_count: 123
+                    _links:
+                      items:
+                        - self:
+                            href: 'https://infinum.com/samples/lectures/1'
+                        - self:
+                            href: 'https://infinum.com/samples/lectures/2'
+                      self:
+                        href: 'http://infinum.com/samples/lectures'
+                      next:
+                        href: 'http://infinum.com/samples/lectures?page[number]=2'
+                      first:
+                        href: 'http://infinum.com/samples/lectures?page[number]=1'
+                      last:
+                        href: 'http://infinum.com/samples/lectures?page[number]=20'
+      tags:
+        - Samples
+      operationId: sample-collection-compound-resource
+      description: |-
+        [Samples] Collection of a compound resource
+
+        Sample resource: Lecture
+      parameters:
+        - $ref: './Shared.yaml#/components/parameters/page_number'
+        - $ref: './Shared.yaml#/components/parameters/page_size'
+        - $ref: './Shared.yaml#/components/parameters/sort'
+        - $ref: './Shared.yaml#/components/parameters/filter'
+    parameters: []
+  '/samples/collection/{id}':
+    get:
+      summary: Resource
+      responses:
+        '200':
+          description: 200 Response
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      id:
+                        type: integer
+                      attributes:
+                        $ref: './Shared.yaml#/components/schemas/Lecture'
+                      links:
+                        type: object
+                        properties:
+                          self:
+                            type: string
+              examples:
+                Example:
+                  value:
+                    data:
+                      id: 1
+                      type: samples/lecture
+                      attributes:
+                        title: This is a lecture
+                        image_url: 'https://link_to_s3/image.png'
+                        held_at: '2019-08-24'
+                        library: true
+            HAL:
+              schema:
+                allOf:
+                  - $ref: './Shared.yaml#/components/schemas/Lecture'
+                  - type: object
+                    properties:
+                      _links:
+                        type: object
+                        properties:
+                          self:
+                            type: object
+                            properties:
+                              href:
+                                type: string
+              examples:
+                Example:
+                  value:
+                    title: This is a lecture
+                    image_url: 'https://link_to_s3/image.png'
+                    held_at: '2019-08-24'
+                    library: true
+                    _links:
+                      self:
+                        href: 'https://infinum.com/samples/lectures/1'
+      tags:
+        - Samples
+      operationId: sample-resource
+      description: |-
+        [Samples] Single resource
+
+        Sample resource: Lecture
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Lecture id
+  /samples/error:
+    get:
+      summary: Error
+      tags:
+        - Samples
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            'JSON:API':
+              schema:
+                $ref: './Shared.yaml#/components/schemas/jsonapi-error'
+              examples:
+                Example:
+                  value:
+                    errors:
+                      - status: unauthorized
+                        title: Unauthorized
+                        detail: Must be logged in to perform this action
+                        source:
+                          header: Authorization
+            HAL:
+              schema:
+                $ref: './Shared.yaml#/components/schemas/hal-error'
+              examples:
+                Example:
+                  value:
+                    type: 'http://infinum.com/problems/unauthorized'
+                    title: Unauthorized
+                    detail: Must be logged in to perform this action
+                    instance: /samples/error
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            'JSON:API':
+              schema:
+                $ref: './Shared.yaml#/components/schemas/jsonapi-error'
+              examples:
+                Example:
+                  value:
+                    errors:
+                      - status: unprocessable entity
+                        title: Unprocessable Entity
+                        detail: Confirmation token is invalid
+                        source:
+                          pointer: data/attributes/confirmation_token
+            HAL:
+              schema:
+                $ref: './Shared.yaml#/components/schemas/hal-error'
+              examples:
+                Single error:
+                  value:
+                    type: 'http://infinum.com/problems/no-quantity'
+                    title: Cannot set product as available.
+                    detail: Product has no Quantity on Hand.
+                    instance: /sales/products/abc123/availableForSale
+                Multiple Errors:
+                  value:
+                    type: 'http://infinum.com/problems/multiple'
+                    title: Multiple Problems
+                    status: 400
+                    detail: There were multiple problems that have occurred.
+                    instance: /sales/products/abc123/availableForSale
+                    problems:
+                      - type: 'http://infinum.com/problems/already-available'
+                        title: Cannot set product as available.
+                        detail: Product is already Available For Sale.
+                        instance: /sales/products/abc123/availableForSale
+                      - type: 'http://infinum.com/problems/no-quantity'
+                        title: Cannot set product as available.
+                        detail: Product has no Quantity on Hand.
+                        instance: /sales/products/abc123/availableForSale
+      operationId: get-samples-error
+      description: Error response
+  /samples/admin/users:
+    get:
+      summary: '[Admin] Filterable list of users'
+      tags:
+        - Samples Resource
+      responses:
+        '200':
+          description: OK
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        type:
+                          type: string
+                        attributes:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                        relationships:
+                          type: object
+                          properties:
+                            company:
+                              type: object
+                              properties:
+                                data:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    type:
+                                      type: string
+                                links:
+                                  type: object
+                                  properties:
+                                    self:
+                                      type: string
+                        links:
+                          type: object
+                          properties:
+                            self:
+                              type: string
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        type:
+                          type: string
+                        attributes:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                  meta:
+                    type: object
+                    properties:
+                      total_count:
+                        type: integer
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                      next:
+                        type: string
+                      last:
+                        type: string
+                x-examples:
+                  Example 1:
+                    value:
+                      data:
+                        - id: 1
+                          type: admin/user
+                          attributes:
+                            name: David Page
+                          relationships:
+                            company:
+                              data:
+                                id: 1
+                                type: admin/company
+                              links:
+                                self: 'https://infinum.com/admin/companies/1'
+                          links:
+                            self: 'https://infinum.com/admin/users/1'
+                        - id: 2
+                          type: admin/user
+                          attributes:
+                            name: Beth Ryan
+                          relationships:
+                            company:
+                              data:
+                                id: 2
+                                type: admin/company
+                              links:
+                                self: 'https://infinum.com/admin/companies/2'
+                          links:
+                            self: 'https://infinum.com/admin/users/2'
+                      included:
+                        - id: 1
+                          type: admin/company
+                          attributes:
+                            name: Schulist and Sons
+                        - id: 2
+                          type: admin/company
+                          attributes:
+                            name: Bailey Group
+                      meta:
+                        total_count: 20
+                      links:
+                        self: 'https://infinum.com/admin/users'
+                        next: 'https://infinum.com/admin/users?page[number]=2'
+                        last: 'https://infinum.com/admin/users?page[number]=5'
+              examples:
+                Example 1:
+                  value:
+                    data:
+                      - id: 1
+                        type: admin/user
+                        attributes:
+                          name: David Page
+                        relationships:
+                          company:
+                            data:
+                              id: 1
+                              type: admin/company
+                            links:
+                              self: 'https://infinum.com/admin/companies/1'
+                        links:
+                          self: 'https://infinum.com/admin/users/1'
+                      - id: 2
+                        type: admin/user
+                        attributes:
+                          name: Beth Ryan
+                        relationships:
+                          company:
+                            data:
+                              id: 2
+                              type: admin/company
+                            links:
+                              self: 'https://infinum.com/admin/companies/2'
+                        links:
+                          self: 'https://infinum.com/admin/users/2'
+                    included:
+                      - id: 1
+                        type: admin/company
+                        attributes:
+                          name: Schulist and Sons
+                      - id: 2
+                        type: admin/company
+                        attributes:
+                          name: Bailey Group
+                    meta:
+                      total_count: 20
+                    links:
+                      self: 'https://infinum.com/admin/users'
+                      next: 'https://infinum.com/admin/users?page[number]=2'
+                      last: 'https://infinum.com/admin/users?page[number]=5'
+      operationId: get-samples-resource-admin-users
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: 'filter[name]'
+        - schema:
+            type: string
+          in: query
+          name: 'filter[company]'
+        - $ref: './Shared.yaml#/components/parameters/page_number'
+        - $ref: './Shared.yaml#/components/parameters/page_size'
+        - $ref: './Shared.yaml#/components/parameters/sort'
+    post:
+      summary: '[Admin] Create new user'
+      operationId: post-samples-resource-admin-users
+      responses:
+        '200':
+          description: OK
+      tags:
+        - Samples Resource
+  '/samples/mobile/company/{id}/users':
+    get:
+      summary: '[Mobile] Filterable list of users'
+      tags:
+        - Samples Resource
+      responses:
+        '200':
+          description: OK
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        type:
+                          type: string
+                        attributes:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                        relationships:
+                          type: object
+                          properties:
+                            company:
+                              type: object
+                              properties:
+                                data:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    type:
+                                      type: string
+                                links:
+                                  type: object
+                                  properties:
+                                    self:
+                                      type: string
+                        links:
+                          type: object
+                          properties:
+                            self:
+                              type: string
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        type:
+                          type: string
+                        attributes:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                  meta:
+                    type: object
+                    properties:
+                      total_count:
+                        type: integer
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                      next:
+                        type: string
+                      last:
+                        type: string
+                x-examples:
+                  Example 1:
+                    value:
+                      data:
+                        - id: 1
+                          type: admin/user
+                          attributes:
+                            name: David Page
+                          relationships:
+                            company:
+                              data:
+                                id: 1
+                                type: admin/company
+                              links:
+                                self: 'https://infinum.com/admin/companies/1'
+                          links:
+                            self: 'https://infinum.com/admin/users/1'
+                        - id: 2
+                          type: admin/user
+                          attributes:
+                            name: Beth Ryan
+                          relationships:
+                            company:
+                              data:
+                                id: 2
+                                type: admin/company
+                              links:
+                                self: 'https://infinum.com/admin/companies/2'
+                          links:
+                            self: 'https://infinum.com/admin/users/2'
+                      included:
+                        - id: 1
+                          type: admin/company
+                          attributes:
+                            name: Schulist and Sons
+                        - id: 2
+                          type: admin/company
+                          attributes:
+                            name: Bailey Group
+                      meta:
+                        total_count: 20
+                      links:
+                        self: 'https://infinum.com/admin/users'
+                        next: 'https://infinum.com/admin/users?page[number]=2'
+                        last: 'https://infinum.com/admin/users?page[number]=5'
+              examples:
+                Example:
+                  value:
+                    data:
+                      - id: 1
+                        type: moblie/user
+                        attributes:
+                          name: David Page
+                        relationships:
+                          language:
+                            data:
+                              id: 3
+                              type: mobile/user_settings
+                          company:
+                            data:
+                              id: 1
+                              type: mobile/company
+                            links:
+                              self: 'https://infinum.com/mobile/companies/1'
+                        links:
+                          self: 'https://infinum.com/mobile/companies/1/users/1'
+                    included:
+                      - id: 3
+                        type: mobile/user_settings
+                        attributes:
+                          title: Language
+                          value: en_US
+                      - id: 1
+                        type: mobile/company
+                        attributes:
+                          name: Schulist and Sons
+      operationId: get-samples-resource-mobile-users
+      parameters:
+        - $ref: './Shared.yaml#/components/parameters/page_number'
+        - $ref: './Shared.yaml#/components/parameters/page_size'
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Company id
+  '/samples/admin/users/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: User Id
+    get:
+      summary: '[Admin] User details'
+      tags:
+        - Samples Resource
+      responses:
+        '200':
+          description: OK
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      type:
+                        type: string
+                      attributes:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                      relationships:
+                        type: object
+                        properties:
+                          settings:
+                            type: object
+                            properties:
+                              data:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    type:
+                                      type: string
+                      links:
+                        type: object
+                        properties:
+                          self:
+                            type: string
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        type:
+                          type: string
+                        attributes:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                            value:
+                              type: string
+                x-examples:
+                  Example 1:
+                    data:
+                      id: 1
+                      type: admin/user
+                      attributes:
+                        name: David Page
+                      relationships:
+                        settings:
+                          data:
+                            - id: 1
+                              type: admin/user_settings
+                            - id: 2
+                              type: admin/user_settings
+                            - id: 3
+                              type: admin/user_settings
+                      links:
+                        self: 'https://infinum.com/admin/users/1'
+                    included:
+                      - id: 1
+                        type: admin/user_settings
+                        attributes:
+                          title: Notifications
+                          value: active
+                      - id: 2
+                        type: admin/user_settings
+                        attributes:
+                          title: Privacy
+                          value: not_accepted
+                      - id: 3
+                        type: admin/user_settings
+                        attributes:
+                          title: Language
+                          value: en_US
+              examples:
+                Example 1:
+                  value:
+                    data:
+                      id: 1
+                      type: admin/user
+                      attributes:
+                        name: David Page
+                      relationships:
+                        settings:
+                          data:
+                            - id: 1
+                              type: admin/user_settings
+                            - id: 2
+                              type: admin/user_settings
+                            - id: 3
+                              type: admin/user_settings
+                      links:
+                        self: 'https://infinum.com/admin/users/1'
+                    included:
+                      - id: 1
+                        type: admin/user_settings
+                        attributes:
+                          title: Notifications
+                          value: active
+                      - id: 2
+                        type: admin/user_settings
+                        attributes:
+                          title: Privacy
+                          value: not_accepted
+                      - id: 3
+                        type: admin/user_settings
+                        attributes:
+                          title: Language
+                          value: en_US
+      operationId: get-samples-resource-admin-users-id
+    put:
+      summary: ''
+      operationId: put-samples-resource-admin-users-id
+      responses:
+        '200':
+          description: OK
+      tags:
+        - Samples Resource
+  '/samples/mobile/company/{company_id}/users/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+    get:
+      summary: '[Mobile] User details'
+      tags:
+        - Samples Resource
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      type:
+                        type: string
+                      attributes:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                      relationships:
+                        type: object
+                        properties:
+                          language:
+                            type: object
+                            properties:
+                              data:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                  type:
+                                    type: string
+                          company:
+                            type: object
+                            properties:
+                              data:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                  type:
+                                    type: string
+                              links:
+                                type: object
+                                properties:
+                                  self:
+                                    type: string
+                      links:
+                        type: object
+                        properties:
+                          self:
+                            type: string
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        type:
+                          type: string
+                        attributes:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                            value:
+                              type: string
+                            name:
+                              type: string
+                x-examples:
+                  Example 1:
+                    data:
+                      id: 1
+                      type: moblie/user
+                      attributes:
+                        name: David Page
+                      relationships:
+                        language:
+                          data:
+                            id: 3
+                            type: mobile/user_settings
+                        company:
+                          data:
+                            id: 1
+                            type: mobile/company
+                          links:
+                            self: 'https://infinum.com/mobile/companies/1'
+                      links:
+                        self: 'https://infinum.com/mobile/companies/1/users/1'
+                    included:
+                      - id: 3
+                        type: mobile/user_settings
+                        attributes:
+                          title: Language
+                          value: en_US
+                      - id: 1
+                        type: mobile/company
+                        attributes:
+                          name: Schulist and Sons
+              examples:
+                Example:
+                  value:
+                    data:
+                      id: 1
+                      type: moblie/user
+                      attributes:
+                        name: David Page
+                      relationships:
+                        language:
+                          data:
+                            id: 3
+                            type: mobile/user_settings
+                        company:
+                          data:
+                            id: 1
+                            type: mobile/company
+                          links:
+                            self: 'https://infinum.com/mobile/companies/1'
+                      links:
+                        self: 'https://infinum.com/mobile/companies/1/users/1'
+                    included:
+                      - id: 3
+                        type: mobile/user_settings
+                        attributes:
+                          title: Language
+                          value: en_US
+                      - id: 1
+                        type: mobile/company
+                        attributes:
+                          name: Schulist and Sons
+      operationId: get-samples-resource-mobile-company-id-users-id
+x-internal: false
+security:
+  - Authentication: []

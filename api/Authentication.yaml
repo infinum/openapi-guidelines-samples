@@ -1,0 +1,152 @@
+openapi: 3.0.0
+x-stoplight:
+  id: rlt8mlf591ynz
+info:
+  title: Authentication
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /auth/registration:
+    post:
+      summary: Register account
+      operationId: post-auth-registration
+      responses:
+        '200':
+          description: OK
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    data:
+                      id: 1
+                      type: user
+                      attributes:
+                        email: joe.doe@infinum.com
+                        name: Joe Doe
+                        terms_accepted_at: '2023-01-22T14:49:12.525Z'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      type:
+                        type: string
+                        enum:
+                          - user
+                      attributes:
+                        type: object
+                        properties:
+                          email:
+                            type: string
+                          name:
+                            type: string
+                          terms_accepted_at:
+                            type: string
+              examples:
+                Example:
+                  value:
+                    data:
+                      id: 1
+                      type: user
+                      attributes:
+                        email: joe.doe@infinum.com
+                        name: Joe Doe
+                        terms_accepted_at: '2022-10-01T12:34:21Z'
+            HAL:
+              schema:
+                type: object
+                properties: {}
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: _web_session=bunchsOfCharacters
+            Authorization:
+              schema:
+                type: string
+                example: Bearer toke
+      description: ''
+      requestBody:
+        content:
+          'JSON:API':
+            schema:
+              type: object
+              x-examples:
+                Example:
+                  data:
+                    type: registration
+                    attributes:
+                      email: user@infinum.com
+                      first_name: first-name
+                      password: password
+                      terms_accepted_at: '2023-01-22T14:49:12.525Z'
+              properties:
+                data:
+                  type: object
+                  required:
+                    - type
+                    - attributes
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - registration
+                    attributes:
+                      type: object
+                      required:
+                        - email
+                        - name
+                        - password
+                        - terms_accepted_at
+                      properties:
+                        email:
+                          type: string
+                        name:
+                          type: string
+                        password:
+                          type: string
+                        terms_accepted_at:
+                          type: string
+                          format: date-time
+              required:
+                - data
+            examples:
+              Example:
+                value:
+                  data:
+                    type: registration
+                    attributes:
+                      email: joe.doe@infinum.com
+                      name: Joe Doe
+                      password: Super$trongPxxsword
+                      terms_accepted_at: '2022-10-01T12:34:21Z'
+          HAL:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                name:
+                  type: string
+                password:
+                  type: string
+                terms_accepted_at:
+                  type: string
+                  format: date-time
+              required:
+                - email
+                - name
+                - password
+                - terms_accepted_at
+            examples:
+              Example:
+                value:
+                  email: joe.doe@infinum.com
+                  name: Joe Doe
+                  password: Super$trongPxxsword
+                  terms_accepted_at: '2022-10-01T12:34:21'
+        description: ''

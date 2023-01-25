@@ -1,0 +1,1237 @@
+openapi: 3.0.0
+x-stoplight:
+  id: zp15g2ah1os78
+info:
+  title: Underline
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /library/landing:
+    get:
+      summary: Landing
+      tags:
+        - Library
+      responses:
+        '200':
+          description: OK
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      type:
+                        type: string
+                      relationships:
+                        type: object
+                        properties:
+                          lectures:
+                            type: object
+                            properties:
+                              data:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    type:
+                                      type: string
+                              links:
+                                type: object
+                                properties:
+                                  self:
+                                    type: string
+                                  next:
+                                    type: string
+                          subjects:
+                            type: object
+                            properties:
+                              data:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    type:
+                                      type: string
+                              links:
+                                type: object
+                                properties:
+                                  self:
+                                    type: string
+                                  next:
+                                    type: string
+                          publishers:
+                            type: object
+                            properties:
+                              data:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    type:
+                                      type: string
+                              links:
+                                type: object
+                                properties:
+                                  self:
+                                    type: string
+                                  next:
+                                    type: string
+                          content_types:
+                            type: object
+                            properties:
+                              data:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    type:
+                                      type: string
+                          release_years:
+                            type: object
+                            properties:
+                              data:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    type:
+                                      type: string
+                          access_types:
+                            type: object
+                            properties:
+                              data:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    type:
+                                      type: string
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                        - title: Subject
+                          properties:
+                            id:
+                              type: integer
+                            type:
+                              type: string
+                            attributes:
+                              type: object
+                              properties:
+                                label:
+                                  type: string
+                                subtitle:
+                                  type: string
+                        - title: Other Filters
+                          properties:
+                            id:
+                              type: integer
+                            type:
+                              type: string
+                            attributes:
+                              type: object
+                              properties:
+                                label:
+                                  type: string
+                        - title: Lecture
+                          properties:
+                            id:
+                              type: integer
+                            type:
+                              type: string
+                            attributes:
+                              $ref: Shared.yaml#/components/schemas/Lecture
+                      type: object
+                  meta:
+                    type: object
+                    properties:
+                      filter_counts:
+                        type: object
+                        properties:
+                          content_types:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                count:
+                                  type: integer
+                          release_years:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                count:
+                                  type: integer
+                          access_types:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                count:
+                                  type: integer
+              examples:
+                no_query:
+                  value:
+                    data:
+                      id: 0
+                      type: library/landing
+                      relationships:
+                        lectures:
+                          data:
+                            - id: 1
+                              type: library/lecture
+                            - id: 2
+                              type: library/lecture
+                            - id: 3
+                              type: library/lecture
+                          links:
+                            self: 'https://infinum.com/library/lectures'
+                            next: 'https://infinum.com/library/lectures?page[number]=2&page[size]=3'
+                        subjects:
+                          data:
+                            - id: 1
+                              type: library/filters/subject
+                            - id: 2
+                              type: library/filters/subject
+                            - id: 3
+                              type: library/filters/subject
+                          links:
+                            self: 'https://infinum.com/library/filters/subjects'
+                            next: 'https://infinum.com/library/filters/subjects?page[number]=2&page[size]=3'
+                        publishers:
+                          data:
+                            - id: 1
+                              type: library/filters/publisher
+                            - id: 2
+                              type: library/filters/publisher
+                            - id: 3
+                              type: library/filters/publisher
+                          links:
+                            self: 'https://infinum.com/library/filters/publishers'
+                            next: 'https://infinum.com/library/filters/publishers?page[number]=2&page[size]=3'
+                        content_types:
+                          data:
+                            - id: 1
+                              type: library/filters/content_type
+                            - id: 2
+                              type: library/filters/content_type
+                            - id: 3
+                              type: library/filters/content_type
+                        release_years:
+                          data:
+                            - id: 3
+                              type: library/filters/release_year
+                            - id: 2
+                              type: library/filters/release_year
+                            - id: 1
+                              type: library/filters/release_year
+                        access_types:
+                          data:
+                            - id: 1
+                              type: library/filters/access_type
+                            - id: 2
+                              type: library/filters/access_type
+                    included:
+                      - id: 1
+                        type: library/lecture
+                        attributes:
+                          title: Adventures in District and State-Level Advocacy
+                          image_url: 'https://assets.infinum.com/lecture/1/poster.jpg'
+                          held_at: '2021-01-10'
+                      - id: 2
+                        type: library/lecture
+                        attributes:
+                          title: 'An Asynchronous, Interactive, Get-The-Facts-Out Activity and More'
+                          image_url: 'https://assets.infinum.com/lecture/2/poster.jpg'
+                          held_at: '2021-01-10'
+                      - id: 3
+                        type: library/lecture
+                        attributes:
+                          title: Consistency and Fairness in Introductory Physics Course Grades
+                          image_url: 'https://assets.infinum.com/lecture/3/poster.jpg'
+                          held_at: '2021-03-10'
+                      - id: 1
+                        type: library/filters/subject
+                        attributes:
+                          label: Nuclear Medicine
+                          subtitle: Health Sciences / Medicine
+                      - id: 2
+                        type: library/filters/subject
+                        attributes:
+                          label: COVID-19
+                          subtitle: Health Sciences / Medicine
+                      - id: 3
+                        type: library/filters/subject
+                        attributes:
+                          label: Ecology
+                          subtitle: Life Sciences / Environmental Sciences
+                      - id: 1
+                        type: library/filters/publisher
+                        attributes:
+                          label: (ACL) Association for Computational Linguistics
+                      - id: 2
+                        type: library/filters/publisher
+                        attributes:
+                          label: (AMA) American Medical Association
+                      - id: 3
+                        type: library/filters/publisher
+                        attributes:
+                          label: (EMC) Electronic Materials Conference
+                      - id: 1
+                        type: library/filters/content_type
+                        attributes:
+                          label: Keynote
+                      - id: 2
+                        type: library/filters/content_type
+                        attributes:
+                          label: Panel
+                      - id: 3
+                        type: library/filters/content_type
+                        attributes:
+                          label: Webinar
+                      - id: 1
+                        type: library/filters/release_year
+                        attributes:
+                          label: 2020
+                      - id: 2
+                        type: library/filters/release_year
+                        attributes:
+                          label: 2021
+                      - id: 3
+                        type: library/filters/release_year
+                        attributes:
+                          label: 2022
+                      - id: 1
+                        type: library/filters/access_type
+                        attributes:
+                          label: Open Access
+                      - id: 2
+                        type: library/filters/access_type
+                        attributes:
+                          label: Premium
+                    meta:
+                      filter_counts:
+                        content_types:
+                          - id: 1
+                            count: 10
+                          - id: 2
+                            count: 18
+                        release_years:
+                          - id: 1
+                            count: 5
+                          - id: 2
+                            count: 13
+                          - id: 3
+                            count: 10
+                        access_types:
+                          - id: 1
+                            count: 8
+                          - id: 2
+                            count: 28
+      operationId: get-library-landing
+      description: '[Library] Get filters, Get first page of lectures, get links for rest'
+    parameters: []
+  /library/lectures:
+    get:
+      summary: Lectures Index
+      responses:
+        '200':
+          description: Library Lecture Collection Response
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      title: Library Lecture
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        type:
+                          type: string
+                        attributes:
+                          $ref: Shared.yaml#/components/schemas/Lecture
+                        relationships:
+                          type: object
+                          properties:
+                            event:
+                              type: object
+                              properties:
+                                data:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    type:
+                                      type: string
+                            tags:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  data:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: integer
+                                      type:
+                                        type: string
+                            speakers:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  data:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: integer
+                                      type:
+                                        type: string
+                  links:
+                    $ref: Shared.yaml#/components/schemas/jsonapi-links
+                  meta:
+                    allOf:
+                      - $ref: Shared.yaml#/components/schemas/meta
+                      - type: object
+                        properties:
+                          filter_counts:
+                            type: object
+                            properties:
+                              content_types:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    count:
+                                      type: integer
+                              release_years:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    count:
+                                      type: integer
+                              access_types:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    count:
+                                      type: integer
+                  incdluded:
+                    title: Array of related resources
+                    type: array
+                    items:
+                      anyOf:
+                        - title: Event
+                          properties:
+                            id:
+                              type: integer
+                            type:
+                              type: string
+                            attributes:
+                              type: object
+                              properties:
+                                title:
+                                  type: string
+                        - title: Tag
+                          properties:
+                            id:
+                              type: integer
+                            type:
+                              type: string
+                            attributes:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                        - title: Speaker
+                          properties:
+                            id:
+                              type: integer
+                            type:
+                              type: string
+                            attributes:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                avatar_url:
+                                  type: string
+                      type: object
+              examples:
+                Example:
+                  value:
+                    data:
+                      - id: 1
+                        type: library/lecture
+                        attributes:
+                          title: This is a lecture
+                          image_url: 'https://link_to_s3/image.png'
+                          held_at: '2019-08-24'
+                          library: true
+                        relationships:
+                          event:
+                            data:
+                              id: 2
+                              type: library/event
+                          tags:
+                            - data:
+                                id: 1
+                                type: library/tag
+                          speakers:
+                            - data:
+                                id: 1
+                                type: library/speaker
+                            - data:
+                                id: 2
+                                type: library/speaker
+                    links:
+                      self: 'https://infinum.com/library/lectures'
+                      next: 'https://infinum.com/library/lectures?page[number]=2'
+                      first: 'https://infinum.com/library/lectures?page[number]=1'
+                      last: 'https://infinum.com/library/lectures?page[number]=10'
+                    meta:
+                      total_count: 123
+                      filter_counts:
+                        content_types:
+                          - id: 1
+                            count: 10
+                          - id: 2
+                            count: 18
+                        release_years:
+                          - id: 1
+                            count: 5
+                          - id: 2
+                            count: 13
+                          - id: 3
+                            count: 10
+                        access_types:
+                          - id: 1
+                            count: 8
+                          - id: 2
+                            count: 28
+                    incdluded:
+                      - id: 2
+                        type: library/event
+                        attributes:
+                          title: Event name
+                      - id: 1
+                        type: library/tag
+                        attributes:
+                          name: KEYNOTE
+                      - id: 1
+                        type: library/speaker
+                        attributes:
+                          name: Speaker First
+                          avatar_url: 'https://link_to_s3/avatar1.jpg'
+                      - id: 2
+                        type: library/speaker
+                        attributes:
+                          name: Speaker Second
+                          avatar_url: 'https://link_to_s3/avatar2.jpg'
+            HAL:
+              schema:
+                type: object
+                properties:
+                  _embedded:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          allOf:
+                            - $ref: Shared.yaml#/components/schemas/Lecture
+                            - type: object
+                              properties:
+                                id:
+                                  type: integer
+                                _embedded:
+                                  type: object
+                                  properties:
+                                    event:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: integer
+                                        title:
+                                          type: string
+                                    speakers:
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          id:
+                                            type: integer
+                                          name:
+                                            type: string
+                                          avatar_url:
+                                            type: string
+                                          _links:
+                                            type: object
+                                            properties:
+                                              self:
+                                                type: object
+                                                properties:
+                                                  href:
+                                                    type: string
+                                    tags:
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          id:
+                                            type: integer
+                                          name:
+                                            type: string
+                      meta:
+                        type: object
+                        properties:
+                          total_count:
+                            type: integer
+                  _links:
+                    allOf:
+                      - type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              title: Link Object
+                              type: object
+                              properties:
+                                self:
+                                  type: object
+                                  properties:
+                                    href:
+                                      type: string
+                      - $ref: Shared.yaml#/components/schemas/hal-links
+              examples:
+                Example:
+                  value:
+                    _embedded:
+                      items:
+                        - id: 1
+                          title: This is a lecture
+                          image_url: 'https://link_to_s3/image.png'
+                          held_at: '2019-08-24'
+                          library: true
+                          _embedded:
+                            event:
+                              id: 2
+                              title: Event name
+                            speakers:
+                              - id: 1
+                                name: Speaker First
+                                avatar_url: 'https://link_to_s3/avatar1.jpg'
+                                _links:
+                                  self:
+                                    href: 'https://infinum.com/speakers/1'
+                              - id: 2
+                                name: Speaker Second
+                                avatar_url: 'https://link_to_s3/avatar2.jpg'
+                                _links:
+                                  self:
+                                    href: 'https://infinum.com/speakers/2'
+                            tags:
+                              - id: 1
+                                name: KEYNOTE
+                        - id: 2
+                          title: This is a another lecture
+                          image_url: 'https://link_to_s3/image2.png'
+                          held_at: '2019-08-24'
+                          library: true
+                          _embedded:
+                            event:
+                              id: 3
+                              title: Another Event name
+                            speakers:
+                              - id: 1
+                                name: Speaker First
+                                avatar_url: 'https://link_to_s3/avatar1.jpg'
+                                _links:
+                                  self:
+                                    href: 'https://infinum.com/speakers/1'
+                              - id: 3
+                                name: Speaker Third
+                                avatar_url: 'https://link_to_s3/avatar3.jpg'
+                                _links:
+                                  self:
+                                    href: 'https://infinum.com/speakers/3'
+                            tags:
+                              - id: 1
+                                name: KEYNOTE
+                      meta:
+                        total_count: 123
+                    _links:
+                      items:
+                        - self:
+                            href: 'https://infinum.com/library/lectures/1'
+                        - self:
+                            href: 'https://infinum.com/library/lectures/2'
+                      self:
+                        href: 'http://infinum.com/library/lectures'
+                      next:
+                        href: 'http://infinum.com/library/lectures?page[number]=2'
+                      first:
+                        href: 'http://infinum.com/library/lectures?page[number]=1'
+                      last:
+                        href: 'http://infinum.com/library/lectures?page[number]=20'
+      operationId: get-library-lectures
+      parameters:
+        - $ref: Shared.yaml#/components/parameters/filter
+        - $ref: Shared.yaml#/components/parameters/page_number
+        - $ref: Shared.yaml#/components/parameters/page_size
+        - $ref: Shared.yaml#/components/parameters/sort
+      tags:
+        - Library
+      description: '[Use Case] Library Lectures'
+  '/events/{event_id}/lectures':
+    get:
+      summary: Lectures Index
+      responses:
+        '200':
+          description: Event Lecture Collection Response
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      title: Library Lecture
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        type:
+                          type: string
+                        attributes:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                            image_url:
+                              type: string
+                        relationships:
+                          type: object
+                          properties:
+                            speakers:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  data:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: integer
+                                      type:
+                                        type: string
+                  links:
+                    $ref: Shared.yaml#/components/schemas/jsonapi-links
+                  meta:
+                    $ref: Shared.yaml#/components/schemas/meta
+                  incdluded:
+                    title: Array of related resources
+                    type: array
+                    items:
+                      anyOf:
+                        - title: Speaker
+                          properties:
+                            id:
+                              type: integer
+                            type:
+                              type: string
+                            attributes:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                avatar_url:
+                                  type: string
+                      type: object
+              examples:
+                Example:
+                  value:
+                    data:
+                      - id: 1
+                        type: events/lecture
+                        attributes:
+                          title: This is a lecture
+                          image_url: 'https://link_to_s3/image.png'
+                        relationships:
+                          speakers:
+                            - data:
+                                id: 1
+                                type: events/speaker
+                            - data:
+                                id: 2
+                                type: events/speaker
+                      - id: 2
+                        type: events/lecture
+                        attributes:
+                          title: This is another lecture
+                          image_url: 'https://link_to_s3/image.png'
+                        relationships:
+                          speakers:
+                            - data:
+                                id: 1
+                                type: events/speaker
+                            - data:
+                                id: 3
+                                type: events/speaker
+                    links:
+                      self: 'https://infinum.com/events/2/lectures'
+                      next: 'https://infinum.com/events/2/lectures?page[number]=2'
+                      first: 'https://infinum.com/events/2/lectures?page[number]=1'
+                      last: 'https://infinum.com/events/2/lectures?page[number]=10'
+                    meta:
+                      total_count: 123
+                    incdluded:
+                      - id: 1
+                        type: events/speaker
+                        attributes:
+                          name: Speaker First
+                          avatar_url: 'https://link_to_s3/avatar1.jpg'
+                      - id: 2
+                        type: events/speaker
+                        attributes:
+                          name: Speaker Second
+                          avatar_url: 'https://link_to_s3/avatar2.jpg'
+                      - id: 3
+                        type: events/speaker
+                        attributes:
+                          name: Speaker Thrid
+                          avatar_url: 'https://link_to_s3/avatar3.jpg'
+            HAL:
+              schema:
+                type: object
+                properties:
+                  _embedded:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            title:
+                              type: string
+                            image_url:
+                              type: string
+                            _embedded:
+                              type: object
+                              properties:
+                                speakers:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: integer
+                                      name:
+                                        type: string
+                                      avatar_url:
+                                        type: string
+                                      _links:
+                                        type: object
+                                        properties:
+                                          self:
+                                            type: object
+                                            properties:
+                                              href:
+                                                type: string
+                      meta:
+                        type: object
+                        properties:
+                          total_count:
+                            type: integer
+                  _links:
+                    allOf:
+                      - type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              title: Link Object
+                              type: object
+                              properties:
+                                self:
+                                  type: object
+                                  properties:
+                                    href:
+                                      type: string
+                      - $ref: Shared.yaml#/components/schemas/hal-links
+              examples:
+                Example:
+                  value:
+                    _embedded:
+                      items:
+                        - id: 1
+                          title: This is a lecture
+                          image_url: 'https://link_to_s3/image.png'
+                          _embedded:
+                            speakers:
+                              - id: 1
+                                name: Speaker First
+                                avatar_url: 'https://link_to_s3/avatar1.jpg'
+                                _links:
+                                  self:
+                                    href: 'https://infinum.com/speakers/1'
+                              - id: 2
+                                name: Speaker Second
+                                avatar_url: 'https://link_to_s3/avatar2.jpg'
+                                _links:
+                                  self:
+                                    href: 'https://infinum.com/speakers/2'
+                        - id: 2
+                          title: This is a another lecture
+                          image_url: 'https://link_to_s3/image2.png'
+                          _embedded:
+                            speakers:
+                              - id: 1
+                                name: Speaker First
+                                avatar_url: 'https://link_to_s3/avatar1.jpg'
+                                _links:
+                                  self:
+                                    href: 'https://infinum.com/speakers/1'
+                              - id: 3
+                                name: Speaker Third
+                                avatar_url: 'https://link_to_s3/avatar3.jpg'
+                                _links:
+                                  self:
+                                    href: 'https://infinum.com/speakers/3'
+                      meta:
+                        total_count: 123
+                    _links:
+                      items:
+                        - self:
+                            href: 'https://infinum.com/events/2/lectures/1'
+                        - self:
+                            href: 'https://infinum.com/events/2/lectures/2'
+                      self:
+                        href: 'http://infinum.com/events/2/lectures'
+                      next:
+                        href: 'http://infinum.com/events/2/lectures?page[number]=2'
+                      first:
+                        href: 'http://infinum.com/events/2/lectures?page[number]=1'
+                      last:
+                        href: 'http://infinum.com/events/2/lectures?page[number]=20'
+      operationId: get-event-lectures
+      parameters:
+        - $ref: Shared.yaml#/components/parameters/page_number
+        - $ref: Shared.yaml#/components/parameters/page_size
+        - $ref: Shared.yaml#/components/parameters/sort
+        - schema:
+            type: string
+          in: query
+          name: 'filter[event_sessions_id]'
+      description: |-
+        [Use Case] 
+        Event Lectures
+      tags:
+        - Event
+    parameters:
+      - schema:
+          type: string
+        name: event_id
+        in: path
+        required: true
+  '/events/{event_id}/sessions':
+    get:
+      summary: Sessions Index
+      responses:
+        '200':
+          description: Event Session Collection Response
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      title: Library Lecture
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        type:
+                          type: string
+                        attributes:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                        relationships:
+                          type: object
+                          properties:
+                            lectures:
+                              type: object
+                              properties:
+                                links:
+                                  type: object
+                                  properties:
+                                    self:
+                                      type: string
+                  links:
+                    $ref: Shared.yaml#/components/schemas/jsonapi-links
+                  meta:
+                    $ref: Shared.yaml#/components/schemas/meta
+              examples:
+                Example:
+                  value:
+                    data:
+                      - id: 1
+                        type: events/session
+                        attributes:
+                          title: Session title
+                        relationships:
+                          lectures:
+                            links:
+                              self: 'https://infinum.com/events/2/lectures?filter[session]=1'
+                      - id: 2
+                        type: events/session
+                        attributes:
+                          title: Session title
+                        relationships:
+                          lectures:
+                            links:
+                              self: 'https://infinum.com/events/2/lectures?filter[session]=2'
+                    links:
+                      self: 'https://infinum.com/events/2/sessions'
+                      next: 'https://infinum.com/events/2/sessions?page[number]=2'
+                      first: 'https://infinum.com/events/2/sessions?page[number]=1'
+                      last: 'https://infinum.com/events/2/sessions?page[number]=10'
+                    meta:
+                      total_count: 123
+            HAL:
+              schema:
+                type: object
+                properties:
+                  _embedded:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            title:
+                              type: string
+                            _embedded:
+                              type: object
+                              properties:
+                                lectures:
+                                  type: object
+                                  properties:
+                                    _links:
+                                      type: object
+                                      properties:
+                                        self:
+                                          type: object
+                                          properties:
+                                            href:
+                                              type: string
+                      meta:
+                        type: object
+                        properties:
+                          total_count:
+                            type: integer
+                  _links:
+                    allOf:
+                      - type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              title: Link Object
+                              type: object
+                              properties:
+                                self:
+                                  type: object
+                                  properties:
+                                    href:
+                                      type: string
+                      - $ref: Shared.yaml#/components/schemas/hal-links
+              examples:
+                Example:
+                  value:
+                    _embedded:
+                      items:
+                        - id: 1
+                          title: Session title
+                          _embedded:
+                            lectures:
+                              _links:
+                                self:
+                                  href: 'https://infinum.com/events/2/lectures?filter[session]=1'
+                        - id: 2
+                          title: Session title
+                          _embedded:
+                            lectures:
+                              _links:
+                                self:
+                                  href: 'https://infinum.com/events/2/lectures?filter[session]=2'
+                      meta:
+                        total_count: 123
+                    _links:
+                      items:
+                        - self:
+                            href: 'https://infinum.com/events/2/sessions/1'
+                        - self:
+                            href: 'https://infinum.com/events/2/sessions/2'
+                      self:
+                        href: 'http://infinum.com/events/2/sessions'
+                      next:
+                        href: 'http://infinum.com/events/2/sessions?page[number]=2'
+                      first:
+                        href: 'http://infinum.com/events/2/sessions?page[number]=1'
+                      last:
+                        href: 'http://infinum.com/events/2/sessions?page[number]=20'
+      operationId: get-event-sessions
+      parameters:
+        - $ref: Shared.yaml#/components/parameters/page_number
+        - $ref: Shared.yaml#/components/parameters/page_size
+        - $ref: Shared.yaml#/components/parameters/sort
+      description: |-
+        [Use Case] 
+        Event Sessions
+      tags:
+        - Event
+    parameters:
+      - schema:
+          type: string
+        name: event_id
+        in: path
+        required: true
+  '/events/{event_id}':
+    get:
+      summary: Event show
+      responses:
+        '200':
+          description: Event Response
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    title: Event
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      type:
+                        type: string
+                      attributes:
+                        type: object
+                        properties:
+                          title:
+                            type: string
+                      relationships:
+                        type: object
+                        properties:
+                          sessions:
+                            type: object
+                            properties:
+                              links:
+                                type: object
+                                properties:
+                                  self:
+                                    type: string
+              examples:
+                Example:
+                  value:
+                    data:
+                      id: 1
+                      type: event
+                      attributes:
+                        title: Event
+                      relationships:
+                        sessions:
+                          links:
+                            self: 'https://infinum.com/events/1/sessions'
+            HAL:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  _links:
+                    type: object
+                    properties:
+                      sessions:
+                        type: object
+                        properties:
+                          href:
+                            type: string
+                      self:
+                        type: object
+                        properties:
+                          href:
+                            type: string
+              examples:
+                Example:
+                  value:
+                    title: Event
+                    _links:
+                      self:
+                        href: 'http://infinum.com/events/1'
+                      sessions:
+                        href: 'http://infinum.com/events/1/sessions'
+      operationId: get-event-show
+      parameters: []
+      description: |-
+        [Use Case] 
+        Event Lectures
+      tags:
+        - Event
+    parameters:
+      - schema:
+          type: string
+        name: event_id
+        in: path
+        required: true
+tags:
+  - name: Event
+  - name: Library
