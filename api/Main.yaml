@@ -2,10 +2,28 @@ openapi: 3.0.0
 x-stoplight:
   id: d2p9a500t4j3i
 info:
-  title: Shared
+  title: Examples API
   version: '1.0'
+  description: |-
+    - Documentation: 
+      - Code First
+    - Request/Response Format:
+      - JSON:API
+      - HAL
+    - URL Case:
+      - snake_case
+    - Resource URI Format primarily:
+      - plural
+    - Authentication:
+      - Authorization Header
+    - Pagination:
+      - page-based:
+        - default page number - 1
+        - default page size - 10
+    - Sorting:
+      - SHORT with commas
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'https://infinum.com'
 paths: {}
 components:
   schemas:
@@ -232,4 +250,11 @@ components:
     Authentication:
       type: http
       scheme: bearer
-      description: Bearer token
+    Cookies:
+      name: _web_session
+      type: apiKey
+      in: cookie
+security:
+  - Authentication: []
+  - Cookies: []
+x-internal: true

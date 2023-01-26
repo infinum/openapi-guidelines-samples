@@ -18,12 +18,20 @@ jobs:
         run: npm install
       - name: Build openapi.yaml
         run: npm run build
-      - name: S3 Sync
+      - name: S3 copy index.html
         uses: giboow/action-aws-cli@v1
         with:
-          args: s3 sync . s3://${{secrets.AWS_S3_BUCKET}}/${{github.ref_name}} --exclude ".git/*" --exclude ".github/*" --no-progress --delete
+          args: s3 cp index.html s3://${{secrets.AWS_S3_BUCKET}}/${{github.ref_name}}/index.html
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'eu-west-2'
+          AWS_REGION: ${{ secrets.AWS_S3_BUCKET_REGION }}
+      - name: S3 copy build spec
+        uses: giboow/action-aws-cli@v1
+        with:
+          args: s3 cp openapi.yaml s3://${{secrets.AWS_S3_BUCKET}}/${{github.ref_name}}/openapi.yaml
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_S3_BUCKET_REGION }}
 

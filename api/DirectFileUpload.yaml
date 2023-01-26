@@ -4,14 +4,13 @@ x-stoplight:
 info:
   title: DirectFileUpload
   version: '1.0'
-servers:
-  - url: 'http://localhost:3000'
+servers: []
 paths:
   /s3/presigned_post:
     get:
       summary: Generate Presigned POST fields
       tags:
-        - S3
+        - Direct File Upload
       responses:
         '200':
           description: OK
@@ -208,7 +207,7 @@ paths:
     post:
       summary: POST Upload endpoint
       tags:
-        - S3
+        - Direct File Upload
       responses:
         '200':
           description: OK
@@ -261,8 +260,6 @@ paths:
     parameters: []
     put:
       summary: PUT Upload endpoint
-      tags:
-        - S3
       responses:
         '200':
           description: OK
@@ -293,6 +290,8 @@ paths:
             type: string
           in: query
           name: X-Amz-SignedHeaders
+      tags:
+        - Direct File Upload
   /s3/form:
     post:
       summary: Create Resource with file url
@@ -329,12 +328,10 @@ paths:
                   size: 12345
         description: ''
       tags:
-        - S3
+        - Direct File Upload
   /s3/presigned_url:
     get:
       summary: Generate Presigned URL
-      tags:
-        - S3
       responses:
         '200':
           description: OK
@@ -361,4 +358,8 @@ paths:
             example: image/png
           in: query
           name: type
+      tags:
+        - Direct File Upload
     parameters: []
+tags:
+  - name: Direct File Upload

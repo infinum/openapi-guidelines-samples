@@ -6,29 +6,8 @@ info:
   version: '1.0'
   contact:
     name: Stef
-  description: |-
-    - Documentation: 
-      - Code First
-    - Request/Response Format:
-      - JSON:API
-      - HAL
-    - URL Case:
-      - snake_case
-    - Resource URI Format primarily:
-      - plural
-    - Authentication:
-      - Authorization Header
-    - Pagination:
-      - page-based:
-        - default page number - 1
-        - default page size - 10
-    - Sorting:
-      - SHORT with commas
-servers:
-  - url: 'https://infinum.com'
-tags:
-  - name: Samples
-  - name: Samples Resource
+  description: ''
+servers: []
 paths:
   /samples/collection:
     get:
@@ -51,7 +30,7 @@ paths:
                         id:
                           type: integer
                         attributes:
-                          $ref: './Shared.yaml#/components/schemas/Lecture'
+                          $ref: ./Main.yaml#/components/schemas/Lecture
                         links:
                           type: object
                           properties:
@@ -191,7 +170,7 @@ paths:
                               properties:
                                 id:
                                   type: integer
-                            - $ref: './Shared.yaml#/components/schemas/Lecture'
+                            - $ref: ./Main.yaml#/components/schemas/Lecture
                       _meta:
                         type: object
                         properties:
@@ -212,7 +191,7 @@ paths:
                                   properties:
                                     href:
                                       type: string
-                      - $ref: './Shared.yaml#/components/schemas/hal-links'
+                      - $ref: ./Main.yaml#/components/schemas/hal-links
               examples:
                 '?page[number]=2&page[size]=2':
                   value:
@@ -322,19 +301,19 @@ paths:
                       last:
                         href: 'http://infinum.com/samples/lectures?sort=name&page[size]=2&page[number]=10'
       tags:
-        - Samples
+        - Representation Examples
       operationId: sample-collection-resource
       description: |-
         [Samples] Collection resource
 
         Sample resource: Lecture
       parameters:
-        - $ref: './Shared.yaml#/components/parameters/page_number'
-        - $ref: './Shared.yaml#/components/parameters/page_size'
-        - $ref: './Shared.yaml#/components/parameters/sort'
-        - $ref: './Shared.yaml#/components/parameters/filter'
-        - $ref: './Shared.yaml#/components/parameters/page_after'
-        - $ref: './Shared.yaml#/components/parameters/page_before'
+        - $ref: ./Main.yaml#/components/parameters/page_number
+        - $ref: ./Main.yaml#/components/parameters/page_size
+        - $ref: ./Main.yaml#/components/parameters/sort
+        - $ref: ./Main.yaml#/components/parameters/filter
+        - $ref: ./Main.yaml#/components/parameters/page_after
+        - $ref: ./Main.yaml#/components/parameters/page_before
     parameters: []
   /samples/compound_collection:
     get:
@@ -357,7 +336,7 @@ paths:
                         id:
                           type: integer
                         attributes:
-                          $ref: './Shared.yaml#/components/schemas/Lecture'
+                          $ref: ./Main.yaml#/components/schemas/Lecture
                         links:
                           type: object
                           properties:
@@ -468,7 +447,7 @@ paths:
                         type: array
                         items:
                           allOf:
-                            - $ref: './Shared.yaml#/components/schemas/Lecture'
+                            - $ref: ./Main.yaml#/components/schemas/Lecture
                             - type: object
                               properties:
                                 id:
@@ -511,7 +490,7 @@ paths:
                                   properties:
                                     href:
                                       type: string
-                      - $ref: './Shared.yaml#/components/schemas/hal-links'
+                      - $ref: ./Main.yaml#/components/schemas/hal-links
               examples:
                 Example:
                   value:
@@ -558,17 +537,17 @@ paths:
                       last:
                         href: 'http://infinum.com/samples/lectures?page[number]=20'
       tags:
-        - Samples
+        - Representation Examples
       operationId: sample-collection-compound-resource
       description: |-
         [Samples] Collection of a compound resource
 
         Sample resource: Lecture
       parameters:
-        - $ref: './Shared.yaml#/components/parameters/page_number'
-        - $ref: './Shared.yaml#/components/parameters/page_size'
-        - $ref: './Shared.yaml#/components/parameters/sort'
-        - $ref: './Shared.yaml#/components/parameters/filter'
+        - $ref: ./Main.yaml#/components/parameters/page_number
+        - $ref: ./Main.yaml#/components/parameters/page_size
+        - $ref: ./Main.yaml#/components/parameters/sort
+        - $ref: ./Main.yaml#/components/parameters/filter
     parameters: []
   '/samples/collection/{id}':
     get:
@@ -589,7 +568,7 @@ paths:
                       id:
                         type: integer
                       attributes:
-                        $ref: './Shared.yaml#/components/schemas/Lecture'
+                        $ref: ./Main.yaml#/components/schemas/Lecture
                       links:
                         type: object
                         properties:
@@ -609,7 +588,7 @@ paths:
             HAL:
               schema:
                 allOf:
-                  - $ref: './Shared.yaml#/components/schemas/Lecture'
+                  - $ref: ./Main.yaml#/components/schemas/Lecture
                   - type: object
                     properties:
                       _links:
@@ -631,7 +610,7 @@ paths:
                       self:
                         href: 'https://infinum.com/samples/lectures/1'
       tags:
-        - Samples
+        - Representation Examples
       operationId: sample-resource
       description: |-
         [Samples] Single resource
@@ -648,14 +627,14 @@ paths:
     get:
       summary: Error
       tags:
-        - Samples
+        - Representation Examples
       responses:
         '401':
           description: Unauthorized
           content:
             'JSON:API':
               schema:
-                $ref: './Shared.yaml#/components/schemas/jsonapi-error'
+                $ref: ./Main.yaml#/components/schemas/jsonapi-error
               examples:
                 Example:
                   value:
@@ -667,7 +646,7 @@ paths:
                           header: Authorization
             HAL:
               schema:
-                $ref: './Shared.yaml#/components/schemas/hal-error'
+                $ref: ./Main.yaml#/components/schemas/hal-error
               examples:
                 Example:
                   value:
@@ -680,7 +659,7 @@ paths:
           content:
             'JSON:API':
               schema:
-                $ref: './Shared.yaml#/components/schemas/jsonapi-error'
+                $ref: ./Main.yaml#/components/schemas/jsonapi-error
               examples:
                 Example:
                   value:
@@ -692,7 +671,7 @@ paths:
                           pointer: data/attributes/confirmation_token
             HAL:
               schema:
-                $ref: './Shared.yaml#/components/schemas/hal-error'
+                $ref: ./Main.yaml#/components/schemas/hal-error
               examples:
                 Single error:
                   value:
@@ -722,7 +701,7 @@ paths:
     get:
       summary: '[Admin] Filterable list of users'
       tags:
-        - Samples Resource
+        - Resource Examples
       responses:
         '200':
           description: OK
@@ -896,9 +875,10 @@ paths:
             type: string
           in: query
           name: 'filter[company]'
-        - $ref: './Shared.yaml#/components/parameters/page_number'
-        - $ref: './Shared.yaml#/components/parameters/page_size'
-        - $ref: './Shared.yaml#/components/parameters/sort'
+        - $ref: ./Main.yaml#/components/parameters/page_number
+        - $ref: ./Main.yaml#/components/parameters/page_size
+        - $ref: ./Main.yaml#/components/parameters/sort
+      description: Return list of users intended for admin views
     post:
       summary: '[Admin] Create new user'
       operationId: post-samples-resource-admin-users
@@ -906,12 +886,161 @@ paths:
         '200':
           description: OK
       tags:
-        - Samples Resource
+        - Resource Examples
+      description: Create new user
+  '/samples/admin/users/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: User Id
+    get:
+      summary: '[Admin] User details'
+      tags:
+        - Resource Examples
+      responses:
+        '200':
+          description: OK
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      type:
+                        type: string
+                      attributes:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                      relationships:
+                        type: object
+                        properties:
+                          settings:
+                            type: object
+                            properties:
+                              data:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    type:
+                                      type: string
+                      links:
+                        type: object
+                        properties:
+                          self:
+                            type: string
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        type:
+                          type: string
+                        attributes:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                            value:
+                              type: string
+                x-examples:
+                  Example 1:
+                    data:
+                      id: 1
+                      type: admin/user
+                      attributes:
+                        name: David Page
+                      relationships:
+                        settings:
+                          data:
+                            - id: 1
+                              type: admin/user_settings
+                            - id: 2
+                              type: admin/user_settings
+                            - id: 3
+                              type: admin/user_settings
+                      links:
+                        self: 'https://infinum.com/admin/users/1'
+                    included:
+                      - id: 1
+                        type: admin/user_settings
+                        attributes:
+                          title: Notifications
+                          value: active
+                      - id: 2
+                        type: admin/user_settings
+                        attributes:
+                          title: Privacy
+                          value: not_accepted
+                      - id: 3
+                        type: admin/user_settings
+                        attributes:
+                          title: Language
+                          value: en_US
+              examples:
+                Example 1:
+                  value:
+                    data:
+                      id: 1
+                      type: admin/user
+                      attributes:
+                        name: David Page
+                      relationships:
+                        settings:
+                          data:
+                            - id: 1
+                              type: admin/user_settings
+                            - id: 2
+                              type: admin/user_settings
+                            - id: 3
+                              type: admin/user_settings
+                      links:
+                        self: 'https://infinum.com/admin/users/1'
+                    included:
+                      - id: 1
+                        type: admin/user_settings
+                        attributes:
+                          title: Notifications
+                          value: active
+                      - id: 2
+                        type: admin/user_settings
+                        attributes:
+                          title: Privacy
+                          value: not_accepted
+                      - id: 3
+                        type: admin/user_settings
+                        attributes:
+                          title: Language
+                          value: en_US
+      operationId: get-samples-resource-admin-users-id
+      description: Return user details intended for admin views
+    put:
+      summary: '[Admin] Update user'
+      operationId: put-samples-resource-admin-users-id
+      responses:
+        '200':
+          description: OK
+      tags:
+        - Resource Examples
+      description: Update user
   '/samples/mobile/company/{id}/users':
     get:
       summary: '[Mobile] Filterable list of users'
       tags:
-        - Samples Resource
+        - Resource Examples
       responses:
         '200':
           description: OK
@@ -1063,8 +1192,9 @@ paths:
                           name: Schulist and Sons
       operationId: get-samples-resource-mobile-users
       parameters:
-        - $ref: './Shared.yaml#/components/parameters/page_number'
-        - $ref: './Shared.yaml#/components/parameters/page_size'
+        - $ref: ./Main.yaml#/components/parameters/page_number
+        - $ref: ./Main.yaml#/components/parameters/page_size
+      description: Return list of users intended for mobile views
     parameters:
       - schema:
           type: string
@@ -1072,152 +1202,6 @@ paths:
         in: path
         required: true
         description: Company id
-  '/samples/admin/users/{id}':
-    parameters:
-      - schema:
-          type: string
-        name: id
-        in: path
-        required: true
-        description: User Id
-    get:
-      summary: '[Admin] User details'
-      tags:
-        - Samples Resource
-      responses:
-        '200':
-          description: OK
-          content:
-            'JSON:API':
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                      type:
-                        type: string
-                      attributes:
-                        type: object
-                        properties:
-                          name:
-                            type: string
-                      relationships:
-                        type: object
-                        properties:
-                          settings:
-                            type: object
-                            properties:
-                              data:
-                                type: array
-                                items:
-                                  type: object
-                                  properties:
-                                    id:
-                                      type: integer
-                                    type:
-                                      type: string
-                      links:
-                        type: object
-                        properties:
-                          self:
-                            type: string
-                  included:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        type:
-                          type: string
-                        attributes:
-                          type: object
-                          properties:
-                            title:
-                              type: string
-                            value:
-                              type: string
-                x-examples:
-                  Example 1:
-                    data:
-                      id: 1
-                      type: admin/user
-                      attributes:
-                        name: David Page
-                      relationships:
-                        settings:
-                          data:
-                            - id: 1
-                              type: admin/user_settings
-                            - id: 2
-                              type: admin/user_settings
-                            - id: 3
-                              type: admin/user_settings
-                      links:
-                        self: 'https://infinum.com/admin/users/1'
-                    included:
-                      - id: 1
-                        type: admin/user_settings
-                        attributes:
-                          title: Notifications
-                          value: active
-                      - id: 2
-                        type: admin/user_settings
-                        attributes:
-                          title: Privacy
-                          value: not_accepted
-                      - id: 3
-                        type: admin/user_settings
-                        attributes:
-                          title: Language
-                          value: en_US
-              examples:
-                Example 1:
-                  value:
-                    data:
-                      id: 1
-                      type: admin/user
-                      attributes:
-                        name: David Page
-                      relationships:
-                        settings:
-                          data:
-                            - id: 1
-                              type: admin/user_settings
-                            - id: 2
-                              type: admin/user_settings
-                            - id: 3
-                              type: admin/user_settings
-                      links:
-                        self: 'https://infinum.com/admin/users/1'
-                    included:
-                      - id: 1
-                        type: admin/user_settings
-                        attributes:
-                          title: Notifications
-                          value: active
-                      - id: 2
-                        type: admin/user_settings
-                        attributes:
-                          title: Privacy
-                          value: not_accepted
-                      - id: 3
-                        type: admin/user_settings
-                        attributes:
-                          title: Language
-                          value: en_US
-      operationId: get-samples-resource-admin-users-id
-    put:
-      summary: ''
-      operationId: put-samples-resource-admin-users-id
-      responses:
-        '200':
-          description: OK
-      tags:
-        - Samples Resource
   '/samples/mobile/company/{company_id}/users/{id}':
     parameters:
       - schema:
@@ -1233,7 +1217,7 @@ paths:
     get:
       summary: '[Mobile] User details'
       tags:
-        - Samples Resource
+        - Resource Examples
       responses:
         '200':
           description: OK
@@ -1367,6 +1351,8 @@ paths:
                         attributes:
                           name: Schulist and Sons
       operationId: get-samples-resource-mobile-company-id-users-id
+      description: Return user details intended for mobile views
 x-internal: false
-security:
-  - Authentication: []
+tags:
+  - name: Representation Examples
+  - name: Resource Examples

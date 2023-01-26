@@ -4,8 +4,8 @@ x-stoplight:
 info:
   title: Authentication
   version: '1.0'
-servers:
-  - url: 'http://localhost:3000'
+  description: ''
+servers: []
 paths:
   /auth/registration:
     post:
@@ -150,3 +150,7 @@ paths:
                   password: Super$trongPxxsword
                   terms_accepted_at: '2022-10-01T12:34:21'
         description: ''
+      tags:
+        - Authentication
+tags:
+  - name: Authentication

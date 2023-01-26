@@ -4,14 +4,13 @@ x-stoplight:
 info:
   title: Underline
   version: '1.0'
-servers:
-  - url: 'http://localhost:3000'
+servers: []
 paths:
   /library/landing:
     get:
-      summary: Landing
+      summary: '[Library] Landing'
       tags:
-        - Library
+        - Underline
       responses:
         '200':
           description: OK
@@ -158,7 +157,7 @@ paths:
                             type:
                               type: string
                             attributes:
-                              $ref: Shared.yaml#/components/schemas/Lecture
+                              $ref: ./Main.yaml#/components/schemas/Lecture
                       type: object
                   meta:
                     type: object
@@ -357,7 +356,7 @@ paths:
     parameters: []
   /library/lectures:
     get:
-      summary: Lectures Index
+      summary: '[Library] Lectures Index'
       responses:
         '200':
           description: Library Lecture Collection Response
@@ -377,7 +376,7 @@ paths:
                         type:
                           type: string
                         attributes:
-                          $ref: Shared.yaml#/components/schemas/Lecture
+                          $ref: ./Main.yaml#/components/schemas/Lecture
                         relationships:
                           type: object
                           properties:
@@ -416,10 +415,10 @@ paths:
                                       type:
                                         type: string
                   links:
-                    $ref: Shared.yaml#/components/schemas/jsonapi-links
+                    $ref: ./Main.yaml#/components/schemas/jsonapi-links
                   meta:
                     allOf:
-                      - $ref: Shared.yaml#/components/schemas/meta
+                      - $ref: ./Main.yaml#/components/schemas/meta
                       - type: object
                         properties:
                           filter_counts:
@@ -575,7 +574,7 @@ paths:
                         type: array
                         items:
                           allOf:
-                            - $ref: Shared.yaml#/components/schemas/Lecture
+                            - $ref: ./Main.yaml#/components/schemas/Lecture
                             - type: object
                               properties:
                                 id:
@@ -638,7 +637,7 @@ paths:
                                   properties:
                                     href:
                                       type: string
-                      - $ref: Shared.yaml#/components/schemas/hal-links
+                      - $ref: ./Main.yaml#/components/schemas/hal-links
               examples:
                 Example:
                   value:
@@ -712,16 +711,16 @@ paths:
                         href: 'http://infinum.com/library/lectures?page[number]=20'
       operationId: get-library-lectures
       parameters:
-        - $ref: Shared.yaml#/components/parameters/filter
-        - $ref: Shared.yaml#/components/parameters/page_number
-        - $ref: Shared.yaml#/components/parameters/page_size
-        - $ref: Shared.yaml#/components/parameters/sort
+        - $ref: ./Main.yaml#/components/parameters/filter
+        - $ref: ./Main.yaml#/components/parameters/page_number
+        - $ref: ./Main.yaml#/components/parameters/page_size
+        - $ref: ./Main.yaml#/components/parameters/sort
       tags:
-        - Library
+        - Underline
       description: '[Use Case] Library Lectures'
   '/events/{event_id}/lectures':
     get:
-      summary: Lectures Index
+      summary: '[Events] Lectures Index'
       responses:
         '200':
           description: Event Lecture Collection Response
@@ -763,9 +762,9 @@ paths:
                                       type:
                                         type: string
                   links:
-                    $ref: Shared.yaml#/components/schemas/jsonapi-links
+                    $ref: ./Main.yaml#/components/schemas/jsonapi-links
                   meta:
-                    $ref: Shared.yaml#/components/schemas/meta
+                    $ref: ./Main.yaml#/components/schemas/meta
                   incdluded:
                     title: Array of related resources
                     type: array
@@ -898,7 +897,7 @@ paths:
                                   properties:
                                     href:
                                       type: string
-                      - $ref: Shared.yaml#/components/schemas/hal-links
+                      - $ref: ./Main.yaml#/components/schemas/hal-links
               examples:
                 Example:
                   value:
@@ -956,9 +955,9 @@ paths:
                         href: 'http://infinum.com/events/2/lectures?page[number]=20'
       operationId: get-event-lectures
       parameters:
-        - $ref: Shared.yaml#/components/parameters/page_number
-        - $ref: Shared.yaml#/components/parameters/page_size
-        - $ref: Shared.yaml#/components/parameters/sort
+        - $ref: ./Main.yaml#/components/parameters/page_number
+        - $ref: ./Main.yaml#/components/parameters/page_size
+        - $ref: ./Main.yaml#/components/parameters/sort
         - schema:
             type: string
           in: query
@@ -967,7 +966,7 @@ paths:
         [Use Case] 
         Event Lectures
       tags:
-        - Event
+        - Underline
     parameters:
       - schema:
           type: string
@@ -976,7 +975,7 @@ paths:
         required: true
   '/events/{event_id}/sessions':
     get:
-      summary: Sessions Index
+      summary: '[Events] Sessions Index'
       responses:
         '200':
           description: Event Session Collection Response
@@ -1012,9 +1011,9 @@ paths:
                                     self:
                                       type: string
                   links:
-                    $ref: Shared.yaml#/components/schemas/jsonapi-links
+                    $ref: ./Main.yaml#/components/schemas/jsonapi-links
                   meta:
-                    $ref: Shared.yaml#/components/schemas/meta
+                    $ref: ./Main.yaml#/components/schemas/meta
               examples:
                 Example:
                   value:
@@ -1092,7 +1091,7 @@ paths:
                                   properties:
                                     href:
                                       type: string
-                      - $ref: Shared.yaml#/components/schemas/hal-links
+                      - $ref: ./Main.yaml#/components/schemas/hal-links
               examples:
                 Example:
                   value:
@@ -1130,14 +1129,14 @@ paths:
                         href: 'http://infinum.com/events/2/sessions?page[number]=20'
       operationId: get-event-sessions
       parameters:
-        - $ref: Shared.yaml#/components/parameters/page_number
-        - $ref: Shared.yaml#/components/parameters/page_size
-        - $ref: Shared.yaml#/components/parameters/sort
+        - $ref: ./Main.yaml#/components/parameters/page_number
+        - $ref: ./Main.yaml#/components/parameters/page_size
+        - $ref: ./Main.yaml#/components/parameters/sort
       description: |-
         [Use Case] 
         Event Sessions
       tags:
-        - Event
+        - Underline
     parameters:
       - schema:
           type: string
@@ -1146,7 +1145,7 @@ paths:
         required: true
   '/events/{event_id}':
     get:
-      summary: Event show
+      summary: '[Events] Event show'
       responses:
         '200':
           description: Event Response
@@ -1225,7 +1224,7 @@ paths:
         [Use Case] 
         Event Lectures
       tags:
-        - Event
+        - Underline
     parameters:
       - schema:
           type: string
@@ -1233,5 +1232,4 @@ paths:
         in: path
         required: true
 tags:
-  - name: Event
-  - name: Library
+  - name: Underline
