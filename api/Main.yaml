@@ -5,6 +5,9 @@ info:
   title: Examples API
   version: '1.0'
   description: |-
+    # YOU MIGHT NEED TO HARD REFRESH AFTER A NEW DEPLOY!
+
+    ## Chosen API options:
     - Documentation: 
       - Code First
     - Request/Response Format:
