@@ -8,23 +8,49 @@ info:
     # YOU MIGHT NEED TO HARD REFRESH AFTER A NEW DEPLOY!
 
     ## Chosen API options:
-    - Documentation: 
-      - Code First
-    - Request/Response Format:
-      - JSON:API
-      - HAL
-    - URL Case:
-      - snake_case
-    - Resource URI Format primarily:
-      - plural
-    - Authentication:
-      - Authorization Header
-    - Pagination:
-      - page-based:
-        - default page number - 1
-        - default page size - 10
-    - Sorting:
-      - SHORT with commas
+    **Documentation:** Api Design First \
+    *ADR:* Best practice
+
+    **Request/Response Format:**
+    - JSON:API
+    - HAL
+    *ADR:* to show both formats
+
+    **Accept headers:** \
+    application/vnd.api+json \
+    *ADR:* JSON:API default
+
+    **URL Case:** snake_case \
+    *ADR:* Rails default
+
+    **Resource URI Format primarily:** plural \
+    *ADR:* Rails default
+
+    **Query string:** \
+    Represent arrays with comma separated values \
+    *ADR:* Easiest to implement
+
+    **Authentication:**
+    - Authorization Header
+    - Cookies
+    *ADR:* Clients are both javascript and mobile
+
+    **Additional Client headers**
+    - X-VERSION -- client version
+    *ADR:* To ease debugging
+
+    **Pagination:**
+    page-based
+      - default page number - 1
+      - default page size - 10
+    *ADR:* Because
+      
+    **Sorting:** with commas \
+    *ADR:* JSON:API suggestion
+
+    ### JSON:API specifics:
+    **type:** singular \
+    **id:** number
 servers:
   - url: 'https://infinum.com'
 paths: {}
