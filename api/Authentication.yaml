@@ -152,5 +152,108 @@ paths:
         description: ''
       tags:
         - Authentication
+  /auth/sessions:
+    post:
+      summary: Login
+      operationId: post-auth-sessions
+      responses:
+        '200':
+          description: OK
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      type:
+                        type: string
+                      attributes:
+                        type: object
+                        properties:
+                          access_token:
+                            type: string
+                          token_type:
+                            type: string
+                          expires_in:
+                            type: integer
+                          refresh_token:
+                            type: string
+                x-examples:
+                  Example 1:
+                    data:
+                      id: 1
+                      type: tokens
+                      attributes:
+                        access_token: 2YotnFZFEjr1zCsicMWpAA
+                        token_type: bearer
+                        expires_in: 3600
+                        refresh_token: tGzv3JOkF0XG5Qx2TlKWIA
+              examples:
+                Example:
+                  value:
+                    data:
+                      id: 1
+                      type: tokens
+                      attributes:
+                        access_token: 2YotnFZFEjr1zCsicMWpAA
+                        token_type: bearer
+                        expires_in: 3600
+                        refresh_token: tGzv3JOkF0XG5Qx2TlKWIA
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: _web_session=123fweer3
+              description: _web_session cookie
+      requestBody:
+        content:
+          'JSON:API':
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  required:
+                    - type
+                    - attributes
+                  properties:
+                    type:
+                      type: string
+                    attributes:
+                      type: object
+                      required:
+                        - email
+                        - password
+                      properties:
+                        email:
+                          type: string
+                        password:
+                          type: string
+              required:
+                - data
+            examples:
+              Example:
+                value:
+                  data:
+                    type: sessions
+                    attributes:
+                      email: user@example.com
+                      password: password
+      tags:
+        - Authentication
+      description: ''
+    delete:
+      summary: Logout
+      operationId: delete-auth-sessions
+      responses:
+        '204':
+          description: No Content
+      tags:
+        - Authentication
+      description: ''
 tags:
   - name: Authentication
