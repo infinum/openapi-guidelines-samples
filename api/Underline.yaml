@@ -139,6 +139,8 @@ paths:
                                   type: string
                                 subtitle:
                                   type: string
+                                count:
+                                  type: integer
                         - title: Other Filters
                           properties:
                             id:
@@ -150,6 +152,8 @@ paths:
                               properties:
                                 label:
                                   type: string
+                                count:
+                                  type: integer
                         - title: Lecture
                           properties:
                             id:
@@ -159,39 +163,6 @@ paths:
                             attributes:
                               $ref: ./Main.yaml#/components/schemas/Lecture
                       type: object
-                  meta:
-                    type: object
-                    properties:
-                      filter_counts:
-                        type: object
-                        properties:
-                          content_types:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                id:
-                                  type: integer
-                                count:
-                                  type: integer
-                          release_years:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                id:
-                                  type: integer
-                                count:
-                                  type: integer
-                          access_types:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                id:
-                                  type: integer
-                                count:
-                                  type: integer
               examples:
                 no_query:
                   value:
@@ -278,81 +249,78 @@ paths:
                         attributes:
                           label: Nuclear Medicine
                           subtitle: Health Sciences / Medicine
+                          count: 123
                       - id: 2
                         type: library/filters/subject
                         attributes:
                           label: COVID-19
                           subtitle: Health Sciences / Medicine
+                          count: 123
                       - id: 3
                         type: library/filters/subject
                         attributes:
                           label: Ecology
                           subtitle: Life Sciences / Environmental Sciences
+                          count: 123
                       - id: 1
                         type: library/filters/publisher
                         attributes:
                           label: (ACL) Association for Computational Linguistics
+                          count: 123
                       - id: 2
                         type: library/filters/publisher
                         attributes:
                           label: (AMA) American Medical Association
+                          count: 123
                       - id: 3
                         type: library/filters/publisher
                         attributes:
                           label: (EMC) Electronic Materials Conference
+                          count: 123
                       - id: 1
                         type: library/filters/content_type
                         attributes:
                           label: Keynote
+                          count: 123
                       - id: 2
                         type: library/filters/content_type
                         attributes:
                           label: Panel
+                          count: 123
                       - id: 3
                         type: library/filters/content_type
                         attributes:
                           label: Webinar
+                          count: 123
                       - id: 1
                         type: library/filters/release_year
                         attributes:
                           label: 2020
+                          count: 123
                       - id: 2
                         type: library/filters/release_year
                         attributes:
                           label: 2021
+                          count: 123
                       - id: 3
                         type: library/filters/release_year
                         attributes:
                           label: 2022
+                          count: 123
                       - id: 1
                         type: library/filters/access_type
                         attributes:
                           label: Open Access
+                          count: 123
                       - id: 2
                         type: library/filters/access_type
                         attributes:
                           label: Premium
-                    meta:
-                      filter_counts:
-                        content_types:
-                          - id: 1
-                            count: 10
-                          - id: 2
-                            count: 18
-                        release_years:
-                          - id: 1
-                            count: 5
-                          - id: 2
-                            count: 13
-                          - id: 3
-                            count: 10
-                        access_types:
-                          - id: 1
-                            count: 8
-                          - id: 2
-                            count: 28
+                          count: 123
       operationId: get-library-landing
       description: '[Library] Get filters, Get first page of lectures, get links for rest'
+      parameters:
+        - $ref: ./Main.yaml#/components/parameters/filter
     parameters: []
   /library/lectures:
     get:
@@ -717,7 +685,81 @@ paths:
         - $ref: ./Main.yaml#/components/parameters/sort
       tags:
         - Underline
-      description: '[Use Case] Library Lectures'
+      description: |-
+        [Use Case] Library Lectures
+
+        Used for paginating just lectures
+  /library/filters/subjects:
+    get:
+      summary: '[Library] Subjects search'
+      responses:
+        '200':
+          description: Library Lecture Collection Response
+          content:
+            'JSON:API':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        type:
+                          type: string
+                        attributes:
+                          type: object
+                          properties:
+                            label:
+                              type: string
+                            subtitle:
+                              type: string
+                            count:
+                              type: integer
+              examples:
+                Example:
+                  value:
+                    data:
+                      - id: 1
+                        type: library/filters/subject
+                        attributes:
+                          label: Nuclear Medicine
+                          subtitle: Health Sciences / Medicine
+                          count: 123
+                      - id: 2
+                        type: library/filters/subject
+                        attributes:
+                          label: COVID-19
+                          subtitle: Health Sciences / Medicine
+                          count: 123
+                      - id: 3
+                        type: library/filters/subject
+                        attributes:
+                          label: Ecology
+                          subtitle: Life Sciences / Environmental Sciences
+                          count: 123
+                    links:
+                      self: 'https://infinum.com/library/filters/subjects'
+                      next: 'https://infinum.com/library/filters/subjects?page[number]=2'
+                      first: 'https://infinum.com/library/filters/subjects?page[number]=1'
+                      last: 'https://infinum.com/library/filters/subjects?page[number]=10'
+                    meta:
+                      total_count: 123
+      operationId: get-library-filters-subjects
+      parameters:
+        - $ref: ./Main.yaml#/components/parameters/filter
+        - $ref: ./Main.yaml#/components/parameters/page_number
+        - $ref: ./Main.yaml#/components/parameters/page_size
+        - $ref: ./Main.yaml#/components/parameters/sort
+      tags:
+        - Underline
+      description: |-
+        [Use Case] Library Subjects
+
+        Used for paginating and queriying just lectures
+    parameters: []
   '/events/{event_id}/lectures':
     get:
       summary: '[Events] Lectures Index'
